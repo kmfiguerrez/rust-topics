@@ -12,7 +12,7 @@ pub fn display_content() {
     display_title();
 
 
-    // mcs_content();
+    mcs_content();
 
     grcim_content();
 
