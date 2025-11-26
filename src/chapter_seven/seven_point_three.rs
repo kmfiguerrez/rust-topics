@@ -8,7 +8,8 @@ pub fn display_content() {
     display_title();
     // primt_content();
     // epwpk_content();
-    bpfpwbal_content()
+    // bpfpwbal_content()
+    srpws_content();
 
 }
 
@@ -127,11 +128,12 @@ fn bpfpwbal_content() {
 // Starting Relative Paths with super. Abbreviated as srpws.
 fn srpws_content() {
     // Subheader title.
-    println!("{}", "Starting Relative Paths with super".bright_blue().bold());
+    println!("{} \n", "Starting Relative Paths with super".bright_blue().bold());
 
     println!("\
     We can construct relative paths that begin in the parent module, rather than the current \
-    module or the crate root, by using {0} at the start of the path. \n\
+    module or the crate root, \n\
+    by using {0} at the start of the path. \n\
     This is like starting a filesystem path with the {1} syntax that means to go to the parent directory. \n\
     Using {0} allows us to reference an item that we know is in the parent module, \n\
     which can make rearranging the module tree easier when the module is closely related to \n\
