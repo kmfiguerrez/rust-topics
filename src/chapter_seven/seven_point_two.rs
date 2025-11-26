@@ -12,8 +12,103 @@ pub fn display_content() {
     display_title();
 
 
-    mcs_content();
+    // mcs_content();
 
+    grcim_content();
+
+}
+
+// Subheaders content
+// Modules Cheat Sheet. Abbreviated as mcs
+fn mcs_content() {
+    let solid_disc = "\u{2022}";
+    let open_disc = "\u{25CB}";
+    let two_spaces = "\u{2003}\u{2003}";
+
+    // Subheader title.
+    println!("{}", "Modules Cheat Sheet \n".blue().bold());
+    
+    println!("\
+        {solid_disc} {0} When compiling a crate, the compiler first looks in the crate root file \n\
+        (usually {1} for a library crate or {2} for a binary crate) for code to compile. \n\
+        ",
+        "Start from the crate root:".bold(),
+        "src/lib.rs".italic(),
+        "src/main.rs".italic()
+    );
+
+    println!("\
+        {solid_disc} {0} In the crate root file, you can declare new modules; say you declare a \
+        “garden” module with {1}. \n\
+        {two_spaces}The compiler will look for the module’s code in these places: \n\
+        \t{open_disc} Inline, within curly brackets that replace the semicolon following {1} \n\
+        \t{open_disc} In the file {2} \n\
+        \t{open_disc} In the file {3} (older style, not preferred)
+    ",
+    "Declaring modules:".bold(),
+    "mod garden;".green().bold(),
+    "src/garden.rs".italic(),
+    "In the file src/garden/mod.rs".italic()
+    );
+
+    println!("\
+        {solid_disc} {0} In any file other than the crate root, you can declare submodules. \n\
+        {two_spaces}For example, you might declare {1} in {2}. \n\
+        {two_spaces}The compiler will look for the submodule’s code within the directory named for the parent \
+        module in these places: \n\
+        \t{open_disc} Inline, directly following {3}, within curly brackets instead of the semicolon \n\
+        \t{open_disc} In the file {4} \n\
+        \t{open_disc} In the file {5} (older style, not preferred)
+    ",
+    "Declaring submodules:".bold(),
+    "mod vegetables;".green().bold(),
+    "src/garden.rs".italic(),
+    "mod vegetables".green().bold(),
+    "src/garden/vegetables.rs".italic(),
+    "src/garden/vegetables/mod.rs".italic(),
+    );
+
+    println!("\
+        {solid_disc} {0} Once a module is part of your crate, you can refer to code in that module \
+        from anywhere else in that same crate, \n\
+        {two_spaces}as long as the privacy rules allow, using the \
+        path to the code. \n\
+        {two_spaces}For example, an {1} type in the garden vegetables module would be found at {2}.
+        
+    ",
+    "Paths to code in modules:".bold(),
+    "Asparagus".green().bold(),
+    "crate::garden::vegetables::Asparagus".green().bold(),
+    );    
+
+    println!("\
+        {solid_disc} {0} Code within a module is private from its parent modules by default. \n\
+        {two_spaces}To make a module public, declare it with {1} instead of {2}. \n\
+        {two_spaces}To make items within a public module public as well, use {3} before their declarations.        
+    ",
+    "Private vs. public:".bold(),
+    "pub mod".green().bold(),
+    "mod".green().bold(),
+    "pub".green().bold(),
+    );
+
+    println!("\
+        {solid_disc} {0} Within a scope, the {1} keyword creates shortcuts to items to reduce repetition of long paths. \n\
+        {two_spaces}In any scope that can refer to {2}, you can create a shortcut with \n\
+        {two_spaces}{2}; and from then on you only need to write {3} to make use of that \
+        type in the scope.
+    ",
+    "The use keyword:".bold(),
+    "use".green().bold(),
+    "crate::garden::vegetables::Asparagus".green().bold(),
+    "Asparagus".green().bold(),
+    );     
+
+}
+
+
+// Grouping Related Code in Modules. Abbreviated as grcim
+fn grcim_content() {
     // Subheader.
     println!("{}", "Grouping Related Code in Modules \n".blue().bold());
 
@@ -58,55 +153,26 @@ pub fn display_content() {
     "siblings".green().bold(),
     "crate".green().bold()
     );
-
 }
 
-// Subheaders content
-// Modules Cheat Sheet. Abbreviated as mcs
-fn mcs_content() {
-    let solid_disc = "\u{2022}";
-    let open_disc = "\u{25CB}";
-    let two_spaces = "\u{2003}\u{2003}";
 
-    // Subheader title.
-    println!("{}", "Modules Cheat Sheet \n".blue().bold());
-    
-    println!("\
-        {solid_disc} {0} When compiling a crate, the compiler first looks in the crate root file \n\
-        (usually {1} for a library crate or {2} for a binary crate) for code to compile. \n\
-        ",
-        "Start from the crate root:".bold(),
-        "src/lib.rs".italic(),
-        "src/main.rs".italic()
-    );
 
-    println!("\
-        {solid_disc} {0} In the crate root file, you can declare new modules; say you declare a \
-        “garden” module with {1}. \n\
-        \t{open_disc} Inline, within curly brackets that replace the semicolon following {1} \n\
-        \t{open_disc} In the file {2} \n\
-        \t{open_disc} In the file {3} (older style, not preferred)
-    ",
-    "Declaring modules:".bold(),
-    "mod garden;".green().bold(),
-    "src/garden.rs".italic(),
-    "In the file src/garden/mod.rs".italic()
-    );
 
-    println!("\
-        {solid_disc} {0} In any file other than the crate root, you can declare submodules. \n\
-        {two_spaces}For example, you might declare {1} in {2}. \n\
-        {two_spaces}The compiler will look for the submodule’s code within the directory named for the parent \
-        module in these places: \n\
-        \t{open_disc} Inline, directly following {3}, within curly brackets instead of the semicolon \n\
-        \t{open_disc} In the file {4} \n\
-        \t{open_disc} In the file {5} (older style, not preferred)
-    ",
-    "Declaring submodules:".bold(),
-    "mod vegetables;".green().bold(),
-    "src/garden.rs".italic(),
-    "mod vegetables".green().bold(),
-    "src/garden/vegetables.rs".italic(),
-    "src/garden/vegetables/mod.rs".italic(),
-    );    
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
