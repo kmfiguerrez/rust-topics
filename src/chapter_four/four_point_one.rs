@@ -657,7 +657,7 @@ fn rvas_content() {
 
   println!(
     "{0} \n\n\
-    {solid_disc} Functions can also transfer and return ownership . \n\
+    {solid_disc} Functions can take ownership also transfer and return ownership. \n\
     {solid_disc} Returning a value from a function will move or copy, just as assignment does. \n\
     {solid_disc} If you want to return multiple values, you can use a tuple. \n\
     {solid_disc} You can use a value on the heap without transferring ownership using {1} or {2}.
