@@ -13,8 +13,9 @@ fn main() {
     // rust_topics::chapter_seven::seven_point_three::display_content();
     // rust_topics::chapter_seven::seven_point_five::display_content();
     // rust_topics::chapter_four::four_point_one::display_contents();
-    rust_topics::chapter_four::four_point_two::display_contents();
+    rust_topics::chapter_four::four_point_three::display_contents();
     // test_code();
+    // test_code3();
     
 }
 
@@ -31,7 +32,7 @@ fn test_code() {
     // println!("{r1}, {r2}");
     println!("{r1}");
     // let r2 = &mut s;
-    let r2 = &s;
+    // let r2 = &s;
 
 }
 
@@ -42,4 +43,29 @@ fn test_code2() {
     let r2 = &s; // no problem
     println!("{r1}, {r2}");
     let r3 = &mut s; // BIG PROBLEM
+}
+
+fn test_code3() {
+  let s = "whatever";
+  let b = s.as_bytes();
+  let i = b.iter();
+  let e = i.enumerate();
+  println!("{:?}", b);
+  println!("{:?}", e);
+  // println!("{:?}", i.next());
+}
+
+fn test_code4() {
+  let s = String::from("Yo");
+  let sr: &str = &s;
+  let sr1 = &s;
+
+  let sl = &s[0..5];
+  let sl = "Hello, world!";
+  let sl1 = &sl[0..5];
+  take_str("");
+}
+
+fn take_str(s: &str) {
+  println!("{s}");
 }
