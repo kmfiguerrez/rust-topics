@@ -13,7 +13,8 @@ fn main() {
     // rust_topics::chapter_seven::seven_point_three::display_content();
     // rust_topics::chapter_seven::seven_point_five::display_content();
     // rust_topics::chapter_four::four_point_one::display_contents();
-    rust_topics::chapter_four::four_point_three::display_contents();
+    // rust_topics::chapter_four::four_point_three::display_contents();
+    rust_topics::chapter_six::six_point_one::display_contents();
     // test_code();
     // test_code3();
     
@@ -68,4 +69,22 @@ fn test_code4() {
 
 fn take_str(s: &str) {
   println!("{s}");
+}
+
+fn enum_test() {
+  enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+  }
+
+  impl Message {
+      fn tawag(&self) {
+      }
+  }
+
+  let m = Message::Write(String::from("hello"));
+
+
 }

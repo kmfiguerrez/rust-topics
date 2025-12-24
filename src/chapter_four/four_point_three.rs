@@ -4,8 +4,9 @@ pub fn display_contents() {
   // tst_content();
   // ss_content();
   // rrs_content();
-  slas_content();
+  // slas_content();
   // os_content();
+  summary_content();
 }
 
 // Subheader contents below.
@@ -205,3 +206,20 @@ fn os_content() {
   );
 
 }
+
+// Subheader: Summary.
+fn summary_content() {
+  // Subheader title.
+  println!("{} \n", "Summary".bright_blue().bold());
+
+  println!(
+    "The concepts of ownership, borrowing, and slices ensure memory safety in Rust \
+    programs at compile time. \n\
+    The Rust language gives you control over your memory usage in the same way as \
+    other systems programming languages. \n\
+    But having the owner of data automatically clean up that data when the owner goes \
+    out of scope means you don’t have to write and debug extra code to get this control.
+  ");
+}
+
+
