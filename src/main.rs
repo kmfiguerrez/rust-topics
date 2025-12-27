@@ -14,9 +14,10 @@ fn main() {
     // rust_topics::chapter_seven::seven_point_five::display_content();
     // rust_topics::chapter_four::four_point_one::display_contents();
     // rust_topics::chapter_four::four_point_three::display_contents();
-    rust_topics::chapter_six::six_point_one::display_contents();
+    rust_topics::chapter_six::six_point_two::display_contents();
     // test_code();
     // test_code3();
+    // enum_test1();
     
 }
 
@@ -85,6 +86,24 @@ fn enum_test() {
   }
 
   let m = Message::Write(String::from("hello"));
+}
 
+fn enum_test1() {
+  enum Coin {
+      Penny,
+      Nickel,
+      Dime,
+      Quarter,
+  }
+
+  let c = Coin::Penny;
+
+  match c {
+      Coin::Dime => 10,
+      idk => {
+        println!("idk nigga!");
+        5
+      }
+  };
 
 }
