@@ -1,7 +1,12 @@
+use std::num::ParseIntError;
+use std::io::{self, Write};
+
+
 use owo_colors::OwoColorize;
 
 pub fn display_contents() {
   chapter_four_title();
+  user_input();
   // wio_content();
   // tsah_content();
   // or_content();
@@ -14,7 +19,42 @@ pub fn display_contents() {
   // vadiwc_content();
   // sod_content();
   // oaf_content();
-  rvas_content();
+  // rvas_content();
+}
+
+fn user_input() -> Result<u8, ParseIntError> {
+  print!("Select a number (q to quit): ");
+  io::stdout().flush().expect("failed to flush stdout");
+
+  let mut input = String::new();
+  match io::stdin().read_line(&mut input) {
+    Ok(0) => {
+      // EOF (Ctrl+D/Ctrl+Z) — exit
+      eprintln!("Read 0 bytes");
+    }
+    Ok(n) => {
+      let input = input.trim();
+      if input == "q" {
+          println!("Quitting.");
+      }
+      println!("You entered: {}", input);
+      println!("{n} bytes read");
+    }
+    Err(err) => {
+      eprintln!("Error reading input: {}", err);
+    }
+  }
+
+  // Parse user input into integers.
+  let input: u8 = match input.trim().parse() {
+    Ok(num) => num,
+    Err(err) => {
+      // eprintln!("Error reading input: {}", err);
+      println!("Program terminated! You did not enter an integer!");
+      return Err(err)
+    }
+  };
+  Ok(input)
 }
 
 fn chapter_four_title() {
@@ -47,14 +87,14 @@ fn wio_content() {
 
   println!(
     "{} is a set of rules that governs how a Rust program manages memory. \n\
-    All programs have to manage the way they use a computer’s memory while running. \n\
+    All programs have to manage the way they use a computer's memory while running. \n\
     Some languages have a garbage collector that automatically looks for unused memory and frees it, \
     while other languages require the programmer to explicitly allocate and free memory. \n\
     Rust uses a third approach: memory is managed through a system of ownership with a set of rules that \
     the compiler checks at compile time. \n\
-    If any of the rules are violated, the program won’t compile. \n\
-    None of the features of ownership will slow down your program while it’s running. \n\n\
-    When you understand ownership, you’ll have a solid foundation for understanding the features that make Rust unique.
+    If any of the rules are violated, the program won't compile. \n\
+    None of the features of ownership will slow down your program while it's running. \n\n\
+    When you understand ownership, you'll have a solid foundation for understanding the features that make Rust unique.
   ",
   "Ownership".italic(),
   );
@@ -171,8 +211,8 @@ fn vs_content() {
   println!("{} \n", "Variable Scope".bright_blue().bold());
 
   println!(
-    "We’ll look at the scope of some variables. A {0} is the range within a program for which an item is valid. \n\
-    The variable is valid from the point at which it’s declared until the end of the current {0}. \n\
+    "We'll look at the scope of some variables. A {0} is the range within a program for which an item is valid. \n\
+    The variable is valid from the point at which it's declared until the end of the current {0}. \n\
     See: {1}, for code sample. \n\n\
     In other words, there are two important points in time here: \n\
     {two_spaces}{solid_disc} The point at which the variable comes into scope, which is when it is declared; \n\
@@ -195,14 +235,14 @@ fn tst_content() {
   println!(
     "Rust has multiple string types: \n\
     {two_spaces}{solid_disc} String literals - which are immutable fixed-length \
-    strings stored in the binary’s read-only memory section. \n\
+    strings stored in the binary's read-only memory section. \n\
     {two_spaces}{solid_disc} The String type - which is a growable, mutable, UTF-8 encoded string type. \n\n\
   ");
   
   println!(
     "String literals where a string value is hardcoded into our program (hardcoded into the text of our program). \n\
-    String literals are convenient, but they aren’t suitable for every situation in which we may want to use text. \n\
-    One reason is that they’re immutable. \n\
+    String literals are convenient, but they aren't suitable for every situation in which we may want to use text. \n\
+    One reason is that they're immutable. \n\
     Another is that not every string value can be known when we write our code: for example, what if we want to take user input and store it? \n\
     For these situations, Rust has a second string type, {0} which is part of the standard library. \n\
     This type manages data allocated on the heap and as such is able to store an amount of text that is unknown to us at compile time. \n\n\
@@ -230,7 +270,7 @@ fn mal_content() {
   println!("{} \n", "Memory and Allocation".bright_blue().bold());
 
   println!(
-    "So, what’s the difference between string literals and String? \
+    "So, what's the difference between string literals and String? \
     Why can {0} be mutated but literals cannot? \
     The difference is in how these two types deal with memory.
   ",
@@ -241,8 +281,8 @@ fn mal_content() {
     "In the case of a string literal, we know the contents at compile time, \
     so the text is hardcoded directly into the final executable. \n\
     This is why string literals are fast and efficient. \
-    But these properties only come from the string literal’s immutability. \n\
-    {0}, we can’t put a blob of memory into the binary for each piece \
+    But these properties only come from the string literal's immutability. \n\
+    {0}, we can't put a blob of memory into the binary for each piece \
     of text whose size is unknown at compile time and whose size might change while running the program.
   ",
   "Unfortunately".red()
@@ -253,7 +293,7 @@ fn mal_content() {
     to allocate an amount of memory on the heap, unknown at compile time, to hold the contents. \
     This means: \n\
     {two_spaces}{solid_disc} The memory must be requested from the memory allocator at runtime. \n\
-    {two_spaces}{solid_disc} We need a way of returning this memory to the allocator when we’re done with our {0}. \n\n\
+    {two_spaces}{solid_disc} We need a way of returning this memory to the allocator when we're done with our {0}. \n\n\
     That first part is done by us: when we call {1}, {2}. \n\
     This is pretty much universal in programming languages.
   ",
@@ -264,17 +304,17 @@ fn mal_content() {
 
   println!(
     "The second part, returning the memory to the allocator, is where \
-    Rust’s ownership system comes into play. \n\
+    Rust's ownership system comes into play. \n\
     When a variable goes out of scope, Rust calls a special function \
     called {0} for us. \n\
     This function is where we would put the code to return the memory \
     to the allocator. \n\
     Because Rust calls {0} automatically at the closing curly bracket \
-    of a scope, we don’t need to remember to free our memory ourselves, \
+    of a scope, we don't need to remember to free our memory ourselves, \
     and we never accidentally forget to free it. \n\n\
     {1}: In C++, this pattern of deallocating resources at the end of an \
-    item’s lifetime is sometimes called {2}. \n\
-    The {0} function in Rust will be familiar to you if you’ve used RAII patterns. \n\n\
+    item's lifetime is sometimes called {2}. \n\
+    The {0} function in Rust will be familiar to you if you've used RAII patterns. \n\n\
     If you want to read more, see: {3}
     ",
     "drop".bright_yellow().bold(),
@@ -564,8 +604,7 @@ fn sod_content() {
     And you can't annotate them with {4} trait. \n\
     {two_spaces}{solid_disc} If a type does not implement the {4} trait, \
     then when we assign it to another variable, the first variable \
-    will no longer be valid. \n\
-
+    will no longer be valid.
   ",
     "let x = 5; \n\
     let y = x; \n\n\
