@@ -1,4 +1,4 @@
-use crate::menu;
+use crate::menu::{self, UserInputError};
 use owo_colors::OwoColorize;
 
 
@@ -7,7 +7,28 @@ use owo_colors::OwoColorize;
 
 pub fn display_contents() {
   chapter_four_title();
-  let _ = menu::user_input();
+  loop {
+    let selected_number = menu::user_input();
+    let selected_number = match selected_number {
+      Ok(num) => {
+        println!("You selected {num}");
+        num
+      }
+      Err(UserInputError::Quit) => {
+        println!("Exiting program safely...");
+        std::process::exit(0);          
+      }
+      Err(UserInputError::Io(err)) => {
+        eprintln!("I/O error: {err}");
+        break;
+      }
+      Err(UserInputError::Parse(err)) => {
+        eprintln!("Parse error: {err}");
+        println!("yo");
+        break;
+      }
+    };
+  }
   // user_input();
   // wio_content();
   // tsah_content();

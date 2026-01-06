@@ -1,6 +1,7 @@
-use std::{io::{self, Write}, num::ParseIntError};
+use std::io::{self, Write};
+use thiserror::Error;
 
-pub fn user_input() -> Result<u8, ParseIntError> {
+pub fn user_input() -> Result<u8, UserInputError> {
   print!("Select a number (q to quit): ");
   io::stdout().flush().expect("failed to flush stdout");
 
@@ -13,13 +14,15 @@ pub fn user_input() -> Result<u8, ParseIntError> {
     Ok(n) => {
       let input = input.trim();
       if input == "q" {
-          println!("Quitting.");
+          // println!("Quitting.");
+          return Err(UserInputError::Quit);
       }
-      println!("You entered: {}", input);
+      // println!("You entered: {}", input);
       println!("{n} bytes read");
     }
     Err(err) => {
-      eprintln!("Error reading input: {}", err);
+      // eprintln!("Error reading input: {}", err);
+      return Err(UserInputError::Io(err));
     }
   }
 
@@ -28,9 +31,23 @@ pub fn user_input() -> Result<u8, ParseIntError> {
     Ok(num) => num,
     Err(err) => {
       // eprintln!("Error reading input: {}", err);
-      println!("Program terminated! You did not enter an integer!");
-      return Err(err)
+      // println!("Program terminated! You did not enter an integer!");
+      return Err(UserInputError::Parse(err));
     }
   };
   Ok(input)
+}
+
+
+// This code uses the thiserror library.
+#[derive(Error, Debug)]
+pub enum UserInputError {
+    #[error("User chose to quit")]
+    Quit, // Our new variant
+
+    #[error("IO error: {0}")]
+    Io(#[from] io::Error), // Handles flush and read_line
+
+    #[error("Parsing error: {0}")]
+    Parse(#[from] std::num::ParseIntError), // Handles parse
 }
