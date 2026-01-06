@@ -1,12 +1,14 @@
-use std::num::ParseIntError;
-use std::io::{self, Write};
-
-
+use crate::menu;
 use owo_colors::OwoColorize;
+
+
+
+
 
 pub fn display_contents() {
   chapter_four_title();
-  user_input();
+  let _ = menu::user_input();
+  // user_input();
   // wio_content();
   // tsah_content();
   // or_content();
@@ -22,40 +24,40 @@ pub fn display_contents() {
   // rvas_content();
 }
 
-fn user_input() -> Result<u8, ParseIntError> {
-  print!("Select a number (q to quit): ");
-  io::stdout().flush().expect("failed to flush stdout");
+// fn user_input() -> Result<u8, ParseIntError> {
+//   print!("Select a number (q to quit): ");
+//   io::stdout().flush().expect("failed to flush stdout");
 
-  let mut input = String::new();
-  match io::stdin().read_line(&mut input) {
-    Ok(0) => {
-      // EOF (Ctrl+D/Ctrl+Z) — exit
-      eprintln!("Read 0 bytes");
-    }
-    Ok(n) => {
-      let input = input.trim();
-      if input == "q" {
-          println!("Quitting.");
-      }
-      println!("You entered: {}", input);
-      println!("{n} bytes read");
-    }
-    Err(err) => {
-      eprintln!("Error reading input: {}", err);
-    }
-  }
+//   let mut input = String::new();
+//   match io::stdin().read_line(&mut input) {
+//     Ok(0) => {
+//       // EOF (Ctrl+D/Ctrl+Z) — exit
+//       eprintln!("Read 0 bytes");
+//     }
+//     Ok(n) => {
+//       let input = input.trim();
+//       if input == "q" {
+//           println!("Quitting.");
+//       }
+//       println!("You entered: {}", input);
+//       println!("{n} bytes read");
+//     }
+//     Err(err) => {
+//       eprintln!("Error reading input: {}", err);
+//     }
+//   }
 
-  // Parse user input into integers.
-  let input: u8 = match input.trim().parse() {
-    Ok(num) => num,
-    Err(err) => {
-      // eprintln!("Error reading input: {}", err);
-      println!("Program terminated! You did not enter an integer!");
-      return Err(err)
-    }
-  };
-  Ok(input)
-}
+//   // Parse user input into integers.
+//   let input: u8 = match input.trim().parse() {
+//     Ok(num) => num,
+//     Err(err) => {
+//       // eprintln!("Error reading input: {}", err);
+//       println!("Program terminated! You did not enter an integer!");
+//       return Err(err)
+//     }
+//   };
+//   Ok(input)
+// }
 
 fn chapter_four_title() {
   let title = "Understanding Ownership";
