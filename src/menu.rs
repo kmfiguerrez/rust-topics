@@ -1,5 +1,7 @@
 use std::io::{self, Write};
 use thiserror::Error;
+use std::process::Command;
+
 
 pub fn user_input() -> Result<u8, UserInputError> {
   print!("Select a number (q to quit): ");
@@ -9,16 +11,16 @@ pub fn user_input() -> Result<u8, UserInputError> {
   match io::stdin().read_line(&mut input) {
     Ok(0) => {
       // EOF (Ctrl+D/Ctrl+Z) — exit
-      println!("Read 0 bytes");
+      // println!("Read 0 bytes");
     }
-    Ok(n) => {
+    Ok(_) => {
       let input = input.trim();
       if input == "q" {
           // println!("Quitting.");
           return Err(UserInputError::Quit);
       }
       // println!("You entered: {}", input);
-      println!("{n} bytes read");
+      // println!("{n} bytes read");
     }
     Err(err) => {
       // eprintln!("Error reading input: {}", err);
@@ -50,4 +52,13 @@ pub enum UserInputError {
 
     #[error("Parsing error: {0}")]
     Parse(#[from] std::num::ParseIntError), // Handles parse
+}
+
+pub fn clear_screen() {
+  // Clear previous screen.
+  if cfg!(target_os = "windows") {
+      Command::new("cmd").args(["/c", "cls"]).status().unwrap();
+  } else {
+      Command::new("clear").status().unwrap();
+  }       
 }

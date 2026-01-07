@@ -1,84 +1,121 @@
-use crate::menu::{self, UserInputError};
+use crate::{chapter, menu};
 use owo_colors::OwoColorize;
-
-
-
-
 
 pub fn display_contents() {
   chapter_four_title();
+  let four_point_one = chapter::Section::new("4.1 What is Ownership?");
+  let subheaders: [chapter::SubHeader; 13];
+  subheaders = [
+    chapter::SubHeader::new("What is Owenership", wio_content),
+    chapter::SubHeader::new("The Stack and the Heap", tsah_content),
+    chapter::SubHeader::new("Ownership Rules", or_content),
+    chapter::SubHeader::new("Variable Scope", vs_content),
+    chapter::SubHeader::new("The String Type", tst_content),
+    chapter::SubHeader::new("Memory and Allocation", mal_content),
+    chapter::SubHeader::new("Variables and Data interacting with Move", vadiwm_content),
+    chapter::SubHeader::new("Deep copy vs Shallow copy", dcvssc_content),
+    chapter::SubHeader::new("Scope and Assignment", sas_content),
+    chapter::SubHeader::new("Variables and Data interacting with Clones", vadiwc_content),
+    chapter::SubHeader::new("Stack-Only Data", sod_content),
+    chapter::SubHeader::new("Ownership and Functions", oaf_content),
+    chapter::SubHeader::new("Return Values and Scope", rvas_content),
+  ];
+
+  let mut i:u8 = 1;
+  for subheader in &subheaders {
+    println!("{}. {}",i, subheader.get_title());
+    i+= 1;
+  }  
+
   loop {
     let selected_number = menu::user_input();
     let selected_number = match selected_number {
       Ok(num) => {
-        println!("You selected {num}");
+        // println!("You selected {num}");
         num
       }
-      Err(UserInputError::Quit) => {
+      Err(menu::UserInputError::Quit) => {
         println!("Exiting program safely...");
-        std::process::exit(0);          
+        std::process::exit(0);   
       }
-      Err(UserInputError::Io(err)) => {
+      Err(menu::UserInputError::Io(err)) => {
         eprintln!("I/O error: {err}");
-        break;
+        return;
       }
-      Err(UserInputError::Parse(err)) => {
+      Err(menu::UserInputError::Parse(err)) => {
         eprintln!("Parse error: {err}");
-        println!("yo");
-        break;
+        println!("Select an integer!");
+        continue;
       }
     };
-  }
-  // user_input();
-  // wio_content();
-  // tsah_content();
-  // or_content();
-  // vs_content();
-  // tst_content();
-  // mal_content();
-  // vadiwm_content();
-  // dcvssc_content();
-  // sas_content();
-  // vadiwc_content();
-  // sod_content();
-  // oaf_content();
-  // rvas_content();
+
+  
+    if selected_number == 1 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+      println!("YO");
+    }
+    else if selected_number == 2 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 3 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 4 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 5 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 6 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 7 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 8 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 9 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 10 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 11 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 12 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }
+    else if selected_number == 13 {
+      menu::clear_screen();
+      subheaders[(selected_number as usize) - 1].display_content();
+    }    
+
+
+
+
+
+
+
+
+
+  };
+
 }
 
-// fn user_input() -> Result<u8, ParseIntError> {
-//   print!("Select a number (q to quit): ");
-//   io::stdout().flush().expect("failed to flush stdout");
-
-//   let mut input = String::new();
-//   match io::stdin().read_line(&mut input) {
-//     Ok(0) => {
-//       // EOF (Ctrl+D/Ctrl+Z) — exit
-//       eprintln!("Read 0 bytes");
-//     }
-//     Ok(n) => {
-//       let input = input.trim();
-//       if input == "q" {
-//           println!("Quitting.");
-//       }
-//       println!("You entered: {}", input);
-//       println!("{n} bytes read");
-//     }
-//     Err(err) => {
-//       eprintln!("Error reading input: {}", err);
-//     }
-//   }
-
-//   // Parse user input into integers.
-//   let input: u8 = match input.trim().parse() {
-//     Ok(num) => num,
-//     Err(err) => {
-//       // eprintln!("Error reading input: {}", err);
-//       println!("Program terminated! You did not enter an integer!");
-//       return Err(err)
-//     }
-//   };
-//   Ok(input)
-// }
 
 fn chapter_four_title() {
   let title = "Understanding Ownership";
@@ -99,7 +136,7 @@ fn wio_content() {
     Understanding ownership is key to becoming proficient in Rust programming. {1}.
   ",
   "Ownership".italic(),
-  "So it’s important to understand how ownership works".bold(),  
+  "So it's important to understand how ownership works".bold(),  
   );
 
   // Here are the basic rules of \
