@@ -31,7 +31,6 @@ pub fn display_contents() {
     let selected_number = menu::user_input();
     let selected_number = match selected_number {
       Ok(num) => {
-        // println!("You selected {num}");
         num
       }
       Err(menu::UserInputError::Quit) => {
@@ -53,7 +52,6 @@ pub fn display_contents() {
     if selected_number == 1 {
       menu::clear_screen();
       subheaders[(selected_number as usize) - 1].display_content();
-      println!("YO");
     }
     else if selected_number == 2 {
       menu::clear_screen();
@@ -103,15 +101,6 @@ pub fn display_contents() {
       menu::clear_screen();
       subheaders[(selected_number as usize) - 1].display_content();
     }    
-
-
-
-
-
-
-
-
-
   };
 
 }
@@ -158,9 +147,6 @@ fn wio_content() {
   ",
   "Ownership".italic(),
   );
-
-
-
 }
 
 // Subheader: The Stack and the Heap. Abbreviated as tsah.
