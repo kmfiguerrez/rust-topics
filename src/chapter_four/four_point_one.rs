@@ -28,21 +28,21 @@ pub fn display_contents() {
   }  
 
   loop {
-    let selected_number = menu::user_input();
+    let selected_number = menu::headers_prompt();
     let selected_number = match selected_number {
       Ok(num) => {
         // println!("You selected {num}");
         num
       }
-      Err(menu::UserInputError::Quit) => {
+      Err(menu::HeaderPromptError::Quit) => {
         println!("Exiting program safely...");
         std::process::exit(0);   
       }
-      Err(menu::UserInputError::Io(err)) => {
+      Err(menu::HeaderPromptError::Io(err)) => {
         eprintln!("I/O error: {err}");
         return;
       }
-      Err(menu::UserInputError::Parse(err)) => {
+      Err(menu::HeaderPromptError::Parse(err)) => {
         eprintln!("Parse error: {err}");
         println!("Select an integer!");
         continue;
