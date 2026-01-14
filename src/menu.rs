@@ -3,7 +3,7 @@ use thiserror::Error;
 use std::process::Command;
 
 
-pub fn user_input() -> Result<u8, UserInputError> {
+pub fn headers_prompt() -> Result<u8, HeaderPromptError> {
   print!("Select a number (q to quit): ");
   io::stdout().flush().expect("failed to flush stdout");
 
@@ -16,15 +16,15 @@ pub fn user_input() -> Result<u8, UserInputError> {
     Ok(_) => {
       let input = input.trim();
       if input == "q" {
-          // println!("Quitting.");
-          return Err(UserInputError::Quit);
+        // println!("Quitting.");
+        return Err(HeaderPromptError::Quit);
       }
       // println!("You entered: {}", input);
       // println!("{n} bytes read");
     }
     Err(err) => {
       // eprintln!("Error reading input: {}", err);
-      return Err(UserInputError::Io(err));
+      return Err(HeaderPromptError::Io(err));
     }
   }
 
@@ -34,7 +34,7 @@ pub fn user_input() -> Result<u8, UserInputError> {
     Err(err) => {
       // eprintln!("Error reading input: {}", err);
       // println!("Program terminated! You did not enter an integer!");
-      return Err(UserInputError::Parse(err));
+      return Err(HeaderPromptError::Parse(err));
     }
   };
   Ok(input)
@@ -43,7 +43,7 @@ pub fn user_input() -> Result<u8, UserInputError> {
 
 // This code uses the thiserror library.
 #[derive(Error, Debug)]
-pub enum UserInputError {
+pub enum HeaderPromptError {
     #[error("User chose to quit")]
     Quit, // Our new variant
 
@@ -62,3 +62,39 @@ pub fn clear_screen() {
       Command::new("clear").status().unwrap();
   }       
 }
+
+// Action returned when reading the small menu input.
+pub enum PostHeaderPromptAction {
+  Quit,
+  ListSubheaders,
+}
+
+// Error type for the small menu input reader. Uses `thiserror` for nice messages.
+#[derive(Error, Debug)]
+pub enum PostHeaderPromptError {
+  #[error("invalid option: {0}")]
+  InvalidOption(String),
+
+  #[error("IO error: {0}")]
+  Io(#[from] io::Error),
+}
+
+/// Reads a single menu command from the user and returns a `PostHeaderPromptAction`.
+/// Only accepts `q` (quit) or `s` (list subheaders). Any other input is an error.
+pub fn post_header_prompt() -> Result<PostHeaderPromptAction, PostHeaderPromptError> {
+  print!("Enter 'q' to quit or 's' to list subheaders: ");
+  io::stdout().flush()?;
+
+  let mut input = String::new();
+  let n = io::stdin().read_line(&mut input)?;
+  if n == 0 {
+    return Err(PostHeaderPromptError::InvalidOption("EOF".into()));
+  }
+
+  match input.trim() {
+    "q" | "Q" => Ok(PostHeaderPromptAction::Quit),
+    "s" | "S" => Ok(PostHeaderPromptAction::ListSubheaders),
+    other => Err(PostHeaderPromptError::InvalidOption(other.to_string())),
+  }
+}
+

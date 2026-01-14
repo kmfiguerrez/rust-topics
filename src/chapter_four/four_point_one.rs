@@ -1,9 +1,8 @@
-use crate::{chapter, menu};
+use crate::{chapter, menu::{self, clear_screen}};
 use owo_colors::OwoColorize;
 
 pub fn display_contents() {
-  chapter_four_title();
-  let four_point_one = chapter::Section::new("4.1 What is Ownership?");
+  let _four_point_one = chapter::Section::new("4.1 What is Ownership?");
   let subheaders: [chapter::SubHeader; 13];
   subheaders = [
     chapter::SubHeader::new("What is Owenership", wio_content),
@@ -21,32 +20,118 @@ pub fn display_contents() {
     chapter::SubHeader::new("Return Values and Scope", rvas_content),
   ];
 
-  let mut i:u8 = 1;
-  for subheader in &subheaders {
-    println!("{}. {}",i, subheader.get_title());
-    i+= 1;
-  }  
-
   loop {
+<<<<<<< HEAD
     let selected_number = menu::user_input();
     let selected_number = match selected_number {
       Ok(num) => {
         num
+=======
+    chapter_four_title();
+    // println!("{}", subheaders.len());
+    let mut i:u8 = 1;
+    for subheader in &subheaders {
+      println!("{}. {}",i, subheader.get_title());
+      i+= 1;
+    }
+    println!();
+
+    'prompting_header_loop: loop {
+      let selected_number = menu::headers_prompt();
+      let selected_number = match selected_number {
+        Ok(num) => {
+          // println!("You selected {num}");
+          if num as usize > subheaders.len() {
+            continue;
+          }
+          num
+        }
+        Err(menu::HeaderPromptError::Quit) => {
+          println!("Exiting program safely...");
+          std::process::exit(0);   
+        }
+        Err(menu::HeaderPromptError::Io(err)) => {
+          eprintln!("I/O error: {err}");
+          return;
+        }
+        Err(menu::HeaderPromptError::Parse(err)) => {
+          eprintln!("Parse error: {err}");
+          // println!("Select an integer!");
+          continue;
+        }
+      };
+
+    
+      if selected_number == 1 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+>>>>>>> chore/new-user-input
       }
-      Err(menu::UserInputError::Quit) => {
-        println!("Exiting program safely...");
-        std::process::exit(0);   
+      else if selected_number == 2 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
       }
-      Err(menu::UserInputError::Io(err)) => {
-        eprintln!("I/O error: {err}");
-        return;
+      else if selected_number == 3 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
       }
-      Err(menu::UserInputError::Parse(err)) => {
-        eprintln!("Parse error: {err}");
-        println!("Select an integer!");
-        continue;
+      else if selected_number == 4 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }
+      else if selected_number == 5 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }
+      else if selected_number == 6 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }
+      else if selected_number == 7 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }
+      else if selected_number == 8 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }
+      else if selected_number == 9 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }
+      else if selected_number == 10 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }
+      else if selected_number == 11 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }
+      else if selected_number == 12 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }
+      else if selected_number == 13 {
+        menu::clear_screen();
+        subheaders[(selected_number as usize) - 1].display_content();
+      }    
+
+      loop {
+        match menu::post_header_prompt() {
+          Ok(menu::PostHeaderPromptAction::ListSubheaders) => {
+            clear_screen();
+            break 'prompting_header_loop;
+          }
+          Ok(menu::PostHeaderPromptAction::Quit) =>std::process::exit(0),
+          Err(menu::PostHeaderPromptError::InvalidOption(_)) => continue,
+          Err(menu::PostHeaderPromptError::Io(err)) => {
+            eprintln!("I/O error: {err}");
+            return;
+          }
+        }        
       }
     };
+<<<<<<< HEAD
 
   
     if selected_number == 1 {
@@ -103,6 +188,9 @@ pub fn display_contents() {
     }    
   };
 
+=======
+  }
+>>>>>>> chore/new-user-input
 }
 
 
