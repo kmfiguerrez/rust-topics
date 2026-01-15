@@ -21,12 +21,6 @@ pub fn display_contents() {
   ];
 
   loop {
-<<<<<<< HEAD
-    let selected_number = menu::user_input();
-    let selected_number = match selected_number {
-      Ok(num) => {
-        num
-=======
     chapter_four_title();
     // println!("{}", subheaders.len());
     let mut i:u8 = 1;
@@ -65,7 +59,6 @@ pub fn display_contents() {
       if selected_number == 1 {
         menu::clear_screen();
         subheaders[(selected_number as usize) - 1].display_content();
->>>>>>> chore/new-user-input
       }
       else if selected_number == 2 {
         menu::clear_screen();
@@ -131,66 +124,7 @@ pub fn display_contents() {
         }        
       }
     };
-<<<<<<< HEAD
-
-  
-    if selected_number == 1 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 2 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 3 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 4 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 5 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 6 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 7 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 8 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 9 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 10 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 11 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 12 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }
-    else if selected_number == 13 {
-      menu::clear_screen();
-      subheaders[(selected_number as usize) - 1].display_content();
-    }    
-  };
-
-=======
   }
->>>>>>> chore/new-user-input
 }
 
 
