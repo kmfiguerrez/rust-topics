@@ -10,6 +10,10 @@ impl<'a> Chapter<'a> {
     self.title
   }
 
+  pub fn get_chapter(&self) -> &'a str {
+    self.chapter
+  }  
+
   pub fn display_sections(&self) {
     let mut i: u8 = 1;
     for section in &self.sections {

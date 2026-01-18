@@ -31,7 +31,7 @@ pub fn content() {
     println!();
 
     'prompting_header_loop: loop {
-      let selected_number = menu::headers_prompt();
+      let selected_number = menu::integer_prompt();
       let selected_number = match selected_number {
         Ok(num) => {
           // println!("You selected {num}");
@@ -40,15 +40,15 @@ pub fn content() {
           }
           num
         }
-        Err(menu::HeaderPromptError::Quit) => {
+        Err(menu::IntegerPromptError::Quit) => {
           println!("Exiting program safely...");
           std::process::exit(0);   
         }
-        Err(menu::HeaderPromptError::Io(err)) => {
+        Err(menu::IntegerPromptError::Io(err)) => {
           eprintln!("I/O error: {err}");
           return;
         }
-        Err(menu::HeaderPromptError::Parse(err)) => {
+        Err(menu::IntegerPromptError::Parse(err)) => {
           eprintln!("Parse error: {err}");
           // println!("Select an integer!");
           continue;
@@ -111,17 +111,17 @@ pub fn content() {
 
       loop {
         match menu::post_header_prompt() {
-          Ok(menu::PostHeaderPromptAction::ListSubheaders) => {
+          Ok(menu::PostSubMenuAction::ListPreviousMenu) => {
             clear_screen();
             break 'prompting_header_loop;
           }
-          Ok(menu::PostHeaderPromptAction::Quit) =>std::process::exit(0),
-          Err(menu::PostHeaderPromptError::InvalidOption(_)) => continue,
-          Err(menu::PostHeaderPromptError::Io(err)) => {
+          Ok(menu::PostSubMenuAction::Quit) =>std::process::exit(0),
+          Err(menu::PostSubMenuError::InvalidOption(_)) => continue,
+          Err(menu::PostSubMenuError::Io(err)) => {
             eprintln!("I/O error: {err}");
             return;
           }
-        }        
+        }
       }
     };
   }

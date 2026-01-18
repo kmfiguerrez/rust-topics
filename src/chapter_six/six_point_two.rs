@@ -1,6 +1,6 @@
 use owo_colors::OwoColorize;
 
-pub fn display_contents() {
+pub fn content() {
   // tmcfc_content();
   // ptbtv_content();
   // tomp_content();
