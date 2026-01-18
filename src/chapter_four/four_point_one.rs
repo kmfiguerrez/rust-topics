@@ -22,40 +22,39 @@ pub fn content() {
 
   loop {
     chapter_four_title();
-    // println!("{}", subheaders.len());
     let mut i:u8 = 1;
     for subheader in &subheaders {
       println!("{}. {}",i, subheader.get_title());
       i+= 1;
     }
+
     println!();
 
     'prompting_header_loop: loop {
-      let selected_number = menu::headers_prompt();
-      let selected_number = match selected_number {
-        Ok(num) => {
-          // println!("You selected {num}");
-          if num as usize > subheaders.len() {
-            continue;
-          }
-          num
-        }
-        Err(menu::HeaderPromptError::Quit) => {
-          println!("Exiting program safely...");
-          std::process::exit(0);   
-        }
-        Err(menu::HeaderPromptError::Io(err)) => {
-          eprintln!("I/O error: {err}");
+      let selected_number = menu::post_menu_prompt();
+      let selected_number: u8 = match selected_number {
+        Ok(menu::PostMenuPromptAction::ListPreviousMenu) => {
+          menu::clear_screen();
           return;
         }
-        Err(menu::HeaderPromptError::Parse(err)) => {
-          eprintln!("Parse error: {err}");
-          // println!("Select an integer!");
-          continue;
+        Ok(menu::PostMenuPromptAction::Quit) => std::process::exit(0),
+        Ok(menu::PostMenuPromptAction::Integer(int_input)) => {
+          if int_input as usize > subheaders.len() {
+            continue;
+          }
+          int_input
         }
+        Err(menu::PostMenuPromptError::InvalidOption(_)) => continue,
+        // Err(menu::PostMenuPromptError::Parse(err)) => {
+        //   eprintln!("Parse error: {err}");
+        //   std::process::exit(1);
+        // }
+        Err(menu::PostMenuPromptError::Io(err)) => {
+          eprintln!("I/O error: {err}");
+          std::process::exit(1);
+        }        
       };
 
-    
       if selected_number == 1 {
         menu::clear_screen();
         subheaders[(selected_number as usize) - 1].display_content();
@@ -111,17 +110,17 @@ pub fn content() {
 
       loop {
         match menu::post_header_prompt() {
-          Ok(menu::PostHeaderPromptAction::ListSubheaders) => {
+          Ok(menu::PostHeaderPromptAction::ListPreviousMenu) => {
             clear_screen();
             break 'prompting_header_loop;
           }
-          Ok(menu::PostHeaderPromptAction::Quit) =>std::process::exit(0),
+          Ok(menu::PostHeaderPromptAction::Quit) => std::process::exit(0),
           Err(menu::PostHeaderPromptError::InvalidOption(_)) => continue,
           Err(menu::PostHeaderPromptError::Io(err)) => {
             eprintln!("I/O error: {err}");
-            return;
+            std::process::exit(1);
           }
-        }        
+        }
       }
     };
   }

@@ -10,6 +10,10 @@ impl<'a> Chapter<'a> {
     self.title
   }
 
+  pub fn get_chapter(&self) -> &'a str {
+    self.chapter
+  }  
+
   pub fn display_sections(&self) {
     let mut i: u8 = 1;
     for section in &self.sections {
@@ -18,7 +22,15 @@ impl<'a> Chapter<'a> {
     }
   }
 
-  // Associate Functions.
+  pub fn get_section(&self, selected_section: u8) -> Option<&Section<'a>> {
+    if selected_section == 0 {
+      None
+    } else {
+      self.sections.get((selected_section - 1) as usize)
+    }
+  }
+
+  // Associate functions.
   pub fn new(title: &'a str, chapter: &'a str, sections: Vec<Section<'a>>) -> Self {
     Self {
       title,
@@ -37,6 +49,10 @@ impl<'a> Section<'a> {
   // Methods.
   pub fn get_title(&self) -> &'a str {
     self.title
+  }
+
+  pub fn display_content(&self) {
+    (self.content)();
   }
 
   // Associate Functions.

@@ -7,3 +7,4 @@ pub fn generate_sections() -> Vec<Section<'static>> {
     Section::new("The Slice Type", four_point_three::content)
   ]
 }
+

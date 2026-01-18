@@ -3,7 +3,7 @@ use thiserror::Error;
 use std::process::Command;
 
 
-pub fn headers_prompt() -> Result<u8, HeaderPromptError> {
+pub fn integer_prompt() -> Result<u8, IntegerPromptError> {
   print!("Select a number (q to quit): ");
   io::stdout().flush().expect("failed to flush stdout");
 
@@ -17,14 +17,14 @@ pub fn headers_prompt() -> Result<u8, HeaderPromptError> {
       let input = input.trim();
       if input == "q" {
         // println!("Quitting.");
-        return Err(HeaderPromptError::Quit);
+        return Err(IntegerPromptError::Quit);
       }
       // println!("You entered: {}", input);
       // println!("{n} bytes read");
     }
     Err(err) => {
       // eprintln!("Error reading input: {}", err);
-      return Err(HeaderPromptError::Io(err));
+      return Err(IntegerPromptError::Io(err));
     }
   }
 
@@ -34,7 +34,7 @@ pub fn headers_prompt() -> Result<u8, HeaderPromptError> {
     Err(err) => {
       // eprintln!("Error reading input: {}", err);
       // println!("Program terminated! You did not enter an integer!");
-      return Err(HeaderPromptError::Parse(err));
+      return Err(IntegerPromptError::Parse(err));
     }
   };
   Ok(input)
@@ -43,7 +43,7 @@ pub fn headers_prompt() -> Result<u8, HeaderPromptError> {
 
 // This code uses the thiserror library.
 #[derive(Error, Debug)]
-pub enum HeaderPromptError {
+pub enum IntegerPromptError {
     #[error("User chose to quit")]
     Quit, // Our new variant
 
@@ -58,15 +58,82 @@ pub fn clear_screen() {
   // Clear previous screen.
   if cfg!(target_os = "windows") {
       Command::new("cmd").args(["/c", "cls"]).status().unwrap();
-  } else {
+  } 
+  else {
       Command::new("clear").status().unwrap();
   }       
 }
 
-// Action returned when reading the small menu input.
+
+// Action returned when reading input that can be an integer, quit, or list previous menu.
+#[derive(Debug)]
+pub enum PostMenuPromptAction {
+    Integer(u8),
+    Quit,
+    ListPreviousMenu,
+}
+
+// Error type for the menu input reader. Uses `thiserror` for nice messages.
+#[derive(Error, Debug)]
+pub enum PostMenuPromptError {
+    #[error("invalid option: {0}")]
+    InvalidOption(String),
+
+    #[error("IO error: {0}")]
+    Io(#[from] io::Error),
+
+    // #[error("Parsing error: {0}")]
+    // Parse(#[from] std::num::ParseIntError),
+}
+
+/// Reads user input that accepts integers, 'q' for quit, or 'c' to list previous menu.
+/// Returns a `PostMenuPromptAction` on success.
+pub fn post_menu_prompt() -> Result<PostMenuPromptAction, PostMenuPromptError> {
+    print!("Enter an integer, 'q' to quit, or 'p' to list previous menu: ");
+    io::stdout().flush()?;
+
+    let mut input = String::new();
+    let n = io::stdin().read_line(&mut input)?;
+    if n == 0 {
+        return Err(PostMenuPromptError::InvalidOption("EOF".into()));
+    }
+
+    let input = input.trim();
+    match input {
+        "q" | "Q" => Ok(PostMenuPromptAction::Quit),
+        "c" | "C" => Ok(PostMenuPromptAction::ListPreviousMenu),
+        other => {
+            match other.parse::<u8>() {
+                Ok(num) => Ok(PostMenuPromptAction::Integer(num)),
+                Err(_) => Err(PostMenuPromptError::InvalidOption(other.to_string())),
+            }
+        }
+    }
+}
+
+/// Reads a single menu command from the user and returns a `PostMenuPromptAction`.
+/// Only accepts `q` (quit) or `c` (list chapters). Any other input is an error.
+pub fn post_section_prompt() -> Result<PostMenuPromptAction, PostMenuPromptError> {
+  print!("Enter an integer, 'q' to quit, or 's' to list previous menu: ");
+  io::stdout().flush()?;
+
+  let mut input = String::new();
+  let n = io::stdin().read_line(&mut input)?;
+  if n == 0 {
+    return Err(PostMenuPromptError::InvalidOption("EOF".into()));
+  }
+
+  match input.trim() {
+    "q" | "Q" => Ok(PostMenuPromptAction::Quit),
+    "s" | "S" => Ok(PostMenuPromptAction::ListPreviousMenu),
+    other => Err(PostMenuPromptError::InvalidOption(other.to_string())),
+  }
+}
+
+// Action returned when reading the to quit or display previous menu input.
 pub enum PostHeaderPromptAction {
   Quit,
-  ListSubheaders,
+  ListPreviousMenu,
 }
 
 // Error type for the small menu input reader. Uses `thiserror` for nice messages.
@@ -93,8 +160,7 @@ pub fn post_header_prompt() -> Result<PostHeaderPromptAction, PostHeaderPromptEr
 
   match input.trim() {
     "q" | "Q" => Ok(PostHeaderPromptAction::Quit),
-    "s" | "S" => Ok(PostHeaderPromptAction::ListSubheaders),
+    "s" | "S" => Ok(PostHeaderPromptAction::ListPreviousMenu),
     other => Err(PostHeaderPromptError::InvalidOption(other.to_string())),
   }
 }
-
