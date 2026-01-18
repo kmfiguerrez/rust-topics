@@ -10,7 +10,7 @@ fn main() {
     chapter::Chapter::new(
       "Understanding Ownership",
       "Chapter 4",
-      chapter_four::generate_sections()
+      chapter_four::section::generate_sections()
     )
   ];
 

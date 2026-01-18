@@ -1,6 +1,6 @@
 use owo_colors::OwoColorize;
 
-pub fn display_contents() {
+pub fn content() {
   // tst_content();
   // ss_content();
   // rrs_content();

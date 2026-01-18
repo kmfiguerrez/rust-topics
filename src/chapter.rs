@@ -30,6 +30,7 @@ impl<'a> Chapter<'a> {
 
 pub struct Section<'a> {
   title: &'a str,
+  content: fn()
 }
 
 impl<'a> Section<'a> {
@@ -39,9 +40,10 @@ impl<'a> Section<'a> {
   }
 
   // Associate Functions.
-  pub fn new(title: &'a str) -> Self {
+  pub fn new(title: &'a str, content: fn()) -> Self {
     Self {
       title,
+      content
     }
   }
 }

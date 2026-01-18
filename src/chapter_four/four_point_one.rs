@@ -2,8 +2,7 @@ use crate::{chapter, menu::{self, clear_screen}};
 use owo_colors::OwoColorize;
 
 
-
-pub fn display_contents() {
+pub fn content() {
   let subheaders: [chapter::SubHeader; 13];
   subheaders = [
     chapter::SubHeader::new("What is Owenership", wio_content),
