@@ -1,21 +1,24 @@
 // use owo_colors::OwoColorize;
 
 use std::io::{self, Write};
-use rust_topics::chapter;
+use rust_topics::{chapter, chapter_four};
 
 fn main() {
-  // user_input();
   // rust_topics::chapter_four::four_point_one::display_contents();
   let chapters: [rust_topics::chapter::Chapter; 1];
   chapters = [
-    chapter::Chapter::new("title", vec![chapter::Section::new("4.1 What is Ownership?")])
+    chapter::Chapter::new(
+      "Understanding Ownership",
+      "Chapter 4",
+      chapter_four::section::generate_sections()
+    )
   ];
 
   // for chapter in chapters {
   //   println!("{}", chapter.get_title())
   // }
 
-  chapters[0].display_content();
+  chapters[0].display_sections();
 }
 
 fn user_input() {

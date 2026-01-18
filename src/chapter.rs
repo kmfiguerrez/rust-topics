@@ -1,5 +1,6 @@
 pub struct Chapter<'a> {
   title: &'a str,
+  chapter: &'a str,
   sections: Vec<Section<'a>>
 }
 
@@ -9,16 +10,19 @@ impl<'a> Chapter<'a> {
     self.title
   }
 
-  pub fn display_content(&self) {
+  pub fn display_sections(&self) {
+    let mut i: u8 = 1;
     for section in &self.sections {
-      println!("{}", section.get_title());
+      println!("{}. {}", i, section.get_title());
+      i+= 1;
     }
   }
 
   // Associate Functions.
-  pub fn new(title: &'a str, sections: Vec<Section<'a>>) -> Self {
+  pub fn new(title: &'a str, chapter: &'a str, sections: Vec<Section<'a>>) -> Self {
     Self {
       title,
+      chapter,
       sections
     }
   }

@@ -1,5 +1,13 @@
-use crate::{chapter, menu::{self, clear_screen}};
+use crate::{chapter::{self, Section}, menu::{self, clear_screen}};
 use owo_colors::OwoColorize;
+
+pub fn generate_sections() -> Vec<Section<'static>> {
+  vec![
+    Section::new("What is ownership?"),
+    Section::new("References and Borrowing"),
+    Section::new("The Slice Type")
+  ]
+}
 
 pub fn display_contents() {
   let _four_point_one = chapter::Section::new("4.1 What is Ownership?");
