@@ -1,3 +1,5 @@
+pub mod content;
+
 pub struct Chapter<'a> {
   title: &'a str,
   chapter: &'a str,

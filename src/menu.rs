@@ -57,10 +57,10 @@ pub enum IntegerPromptError {
 pub fn clear_screen() {
   // Clear previous screen.
   if cfg!(target_os = "windows") {
-      Command::new("cmd").args(["/c", "cls"]).status().unwrap();
+    Command::new("cmd").args(["/c", "cls"]).status().unwrap();
   } 
   else {
-      Command::new("clear").status().unwrap();
+    Command::new("clear").status().unwrap();
   }       
 }
 
@@ -89,46 +89,28 @@ pub enum PostMenuPromptError {
 /// Reads user input that accepts integers, 'q' for quit, or 'c' to list previous menu.
 /// Returns a `PostMenuPromptAction` on success.
 pub fn post_menu_prompt() -> Result<PostMenuPromptAction, PostMenuPromptError> {
-    print!("Enter an integer, 'q' to quit, or 'p' to list previous menu: ");
-    io::stdout().flush()?;
-
-    let mut input = String::new();
-    let n = io::stdin().read_line(&mut input)?;
-    if n == 0 {
-        return Err(PostMenuPromptError::InvalidOption("EOF".into()));
-    }
-
-    let input = input.trim();
-    match input {
-        "q" | "Q" => Ok(PostMenuPromptAction::Quit),
-        "c" | "C" => Ok(PostMenuPromptAction::ListPreviousMenu),
-        other => {
-            match other.parse::<u8>() {
-                Ok(num) => Ok(PostMenuPromptAction::Integer(num)),
-                Err(_) => Err(PostMenuPromptError::InvalidOption(other.to_string())),
-            }
-        }
-    }
-}
-
-/// Reads a single menu command from the user and returns a `PostMenuPromptAction`.
-/// Only accepts `q` (quit) or `c` (list chapters). Any other input is an error.
-pub fn post_section_prompt() -> Result<PostMenuPromptAction, PostMenuPromptError> {
-  print!("Enter an integer, 'q' to quit, or 's' to list previous menu: ");
+  print!("Enter an integer, 'q' to quit, or 'p' to list previous menu: ");
   io::stdout().flush()?;
 
   let mut input = String::new();
   let n = io::stdin().read_line(&mut input)?;
   if n == 0 {
-    return Err(PostMenuPromptError::InvalidOption("EOF".into()));
+      return Err(PostMenuPromptError::InvalidOption("EOF".into()));
   }
 
-  match input.trim() {
-    "q" | "Q" => Ok(PostMenuPromptAction::Quit),
-    "s" | "S" => Ok(PostMenuPromptAction::ListPreviousMenu),
-    other => Err(PostMenuPromptError::InvalidOption(other.to_string())),
+  let input = input.trim();
+  match input {
+      "q" | "Q" => Ok(PostMenuPromptAction::Quit),
+      "p" | "P" => Ok(PostMenuPromptAction::ListPreviousMenu),
+      other => {
+          match other.parse::<u8>() {
+              Ok(num) => Ok(PostMenuPromptAction::Integer(num)),
+              Err(_) => Err(PostMenuPromptError::InvalidOption(other.to_string())),
+          }
+      }
   }
 }
+
 
 // Action returned when reading the to quit or display previous menu input.
 pub enum PostHeaderPromptAction {

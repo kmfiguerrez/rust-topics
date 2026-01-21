@@ -1,22 +1,10 @@
 // use owo_colors::OwoColorize;
 
-use rust_topics::{chapter, chapter_four, chapter_six, menu};
+use rust_topics::{chapter::{self, content::generate_chapters}, menu};
 
 fn main() {
   // rust_topics::chapter_four::four_point_one::display_contents();
-  let chapters: [rust_topics::chapter::Chapter; 2];
-  chapters = [
-    chapter::Chapter::new(
-      "Understanding Ownership",
-      "Chapter 4",
-      chapter_four::section::generate_sections()
-    ),
-    chapter::Chapter::new(
-      "Enums and Pattern Matching",
-      "Chapter 6",
-      chapter_six::section::generate_sections()
-    )
-  ];
+  let chapters = generate_chapters();
   
   // This outer loop will display the chapters and then proceed to selecting a
   // chapter then to section down to headers.
@@ -43,11 +31,12 @@ fn main() {
         }
         Err(menu::IntegerPromptError::Quit) => {
           println!("Exiting program safely...");
-          std::process::exit(0);   
+          std::process::exit(0);
         }
         Err(menu::IntegerPromptError::Io(err)) => {
           eprintln!("I/O error: {err}");
-          return;
+          std::process::exit(1);
+
         }
         Err(menu::IntegerPromptError::Parse(err)) => {
           eprintln!("Parse error: {err}");
@@ -58,8 +47,7 @@ fn main() {
 
       // This part is about to select a chapter.
       // Initialized temporary values to both selected_chapter and selected_section.
-      let mut selected_chapter = &chapters[0];
-      let mut selected_section: &chapter::Section;
+      let mut selected_chapter  = &chapters[0];
       if selected_number == 1 {
         menu::clear_screen();
         selected_chapter = &chapters[(selected_number as usize) - 1];
@@ -70,6 +58,7 @@ fn main() {
       };
       
       // This part is about to select a section under a selected chapter.
+      let mut selected_section: &chapter::Section;
       loop {
         selected_chapter.display_sections();
         loop {
