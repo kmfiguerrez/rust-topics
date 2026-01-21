@@ -1,10 +1,10 @@
-use crate::{chapter, menu::{self, clear_screen}};
+use crate::{chapter::{self, SubHeader}, menu::{self, clear_screen}};
 use owo_colors::OwoColorize;
 
 
 pub fn content() {
-  let subheaders: [chapter::SubHeader; 13];
-  subheaders = [
+  let sub_headers: [chapter::SubHeader; 13];
+  sub_headers = [
     chapter::SubHeader::new("What is Owenership", wio_content),
     chapter::SubHeader::new("The Stack and the Heap", tsah_content),
     chapter::SubHeader::new("Ownership Rules", or_content),
@@ -23,8 +23,8 @@ pub fn content() {
   loop {
     chapter_four_title();
     let mut i:u8 = 1;
-    for subheader in &subheaders {
-      println!("{}. {}",i, subheader.get_title());
+    for sub_header in &sub_headers {
+      println!("{}. {}",i, sub_header.get_title());
       i+= 1;
     }
 
@@ -39,7 +39,7 @@ pub fn content() {
         }
         Ok(menu::PostMenuPromptAction::Quit) => std::process::exit(0),
         Ok(menu::PostMenuPromptAction::Integer(int_input)) => {
-          if int_input as usize > subheaders.len() {
+          if int_input as usize > sub_headers.len() {
             continue;
           }
           int_input
@@ -55,58 +55,66 @@ pub fn content() {
         }        
       };
 
-      if selected_number == 1 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
+      // if selected_number == 1 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 2 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 3 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 4 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 5 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 6 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 7 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 8 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 9 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 10 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 11 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 12 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }
+      // else if selected_number == 13 {
+      //   menu::clear_screen();
+      //   subheaders[(selected_number as usize) - 1].display_content();
+      // }    
+
+      for (index, value) in sub_headers.iter().enumerate() {
+        if (selected_number as usize) - 1 == index {
+          menu::clear_screen();
+          value.display_content();
+          break;
+        }
       }
-      else if selected_number == 2 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 3 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 4 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 5 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 6 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 7 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 8 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 9 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 10 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 11 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 12 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }
-      else if selected_number == 13 {
-        menu::clear_screen();
-        subheaders[(selected_number as usize) - 1].display_content();
-      }    
 
       loop {
         match menu::post_header_prompt() {
