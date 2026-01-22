@@ -1,8 +1,8 @@
-use crate::{chapter::{self, SubHeader}, menu::{self, clear_screen}};
+use crate::{chapter, menu::{self, clear_screen}};
 use owo_colors::OwoColorize;
 
 
-pub fn content() {
+pub fn content(title: &str) {
   let sub_headers: [chapter::SubHeader; 13];
   sub_headers = [
     chapter::SubHeader::new("What is Owenership", wio_content),
@@ -21,7 +21,8 @@ pub fn content() {
   ];
 
   loop {
-    chapter_four_title();
+    menu::section_title(title);
+    
     let mut i:u8 = 1;
     for sub_header in &sub_headers {
       println!("{}. {}",i, sub_header.get_title());
@@ -55,59 +56,7 @@ pub fn content() {
         }        
       };
 
-      // if selected_number == 1 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 2 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 3 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 4 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 5 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 6 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 7 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 8 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 9 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 10 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 11 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 12 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }
-      // else if selected_number == 13 {
-      //   menu::clear_screen();
-      //   subheaders[(selected_number as usize) - 1].display_content();
-      // }    
-
+      // Display selected header content.
       for (index, value) in sub_headers.iter().enumerate() {
         if (selected_number as usize) - 1 == index {
           menu::clear_screen();
@@ -134,12 +83,6 @@ pub fn content() {
   }
 }
 
-
-fn chapter_four_title() {
-  let title = "Understanding Ownership";
-  println!("{}", title.bright_blue().bold());
-  println!("{} \n", "-".repeat(title.len()).bright_blue());
-}
 
 // Subheaders content below.
 

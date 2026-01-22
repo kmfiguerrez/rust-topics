@@ -1,6 +1,6 @@
 use owo_colors::OwoColorize;
 
-pub fn content() {
+pub fn content(title: &str) {
   // tmcfc_content();
   // ptbtv_content();
   // tomp_content();

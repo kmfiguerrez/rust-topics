@@ -44,7 +44,7 @@ impl<'a> Chapter<'a> {
 
 pub struct Section<'a> {
   title: &'a str,
-  content: fn()
+  content: fn(&str)
 }
 
 impl<'a> Section<'a> {
@@ -54,11 +54,11 @@ impl<'a> Section<'a> {
   }
 
   pub fn display_content(&self) {
-    (self.content)();
+    (self.content)(self.get_title());
   }
 
   // Associate Functions.
-  pub fn new(title: &'a str, content: fn()) -> Self {
+  pub fn new(title: &'a str, content: fn(&str)) -> Self {
     Self {
       title,
       content
@@ -89,4 +89,6 @@ impl<'a> SubHeader<'a> {
       content
     }
   }
+
+
 }

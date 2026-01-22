@@ -1,4 +1,5 @@
 use std::io::{self, Write};
+use owo_colors::OwoColorize;
 use thiserror::Error;
 use std::process::Command;
 
@@ -145,4 +146,18 @@ pub fn post_header_prompt() -> Result<PostHeaderPromptAction, PostHeaderPromptEr
     "s" | "S" => Ok(PostHeaderPromptAction::ListPreviousMenu),
     other => Err(PostHeaderPromptError::InvalidOption(other.to_string())),
   }
+}
+
+// This function will format a literal string into a style desired for a title.
+pub fn chapter_title(title: &str, chapter: &str) {
+  let chapter_title = format!("{}: {}", chapter, title);
+  println!("{}", chapter_title.bright_blue().bold());
+  println!("{} \n", "-".repeat(chapter_title.len()).bright_blue());
+}
+
+
+pub fn section_title(title: &str) {
+  let section_title = format!("Section: {}", title);
+  println!("{}", section_title.bright_blue().bold());
+  println!("{} \n", "-".repeat(section_title.len()).bright_blue());  
 }

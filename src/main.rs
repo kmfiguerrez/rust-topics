@@ -1,6 +1,6 @@
-// use owo_colors::OwoColorize;
+use owo_colors::OwoColorize;
 
-use rust_topics::{chapter::{self, content::generate_chapters}, menu};
+use rust_topics::{chapter::{self, content::generate_chapters}, menu::{self, section_title}};
 
 fn main() {
   // rust_topics::chapter_four::four_point_one::display_contents();
@@ -60,7 +60,10 @@ fn main() {
       // This part is about to select a section under a selected chapter.
       let mut selected_section: &chapter::Section;
       loop {
+        // Display chapter title.
+        menu::chapter_title(selected_chapter.get_title(), selected_chapter.get_chapter());
         selected_chapter.display_sections();
+        println!();
         loop {
           match menu::post_menu_prompt() {
             Ok(menu::PostMenuPromptAction::ListPreviousMenu) => {
@@ -89,7 +92,9 @@ fn main() {
             }
           }
         }
+
         // This part is about to select a header under a selected section.
+        menu::clear_screen();
         selected_section.display_content();
       }
     }
