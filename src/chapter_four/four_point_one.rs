@@ -1,10 +1,10 @@
-use crate::{chapter, menu::{self, clear_screen}};
+use crate::chapter;
 use owo_colors::OwoColorize;
 
 
-pub fn content(title: &str) {
-  let sub_headers: [chapter::SubHeader; 13];
-  sub_headers = [
+pub fn content(section_title: &str) {
+  let subheaders: [chapter::SubHeader; 13];
+  subheaders = [
     chapter::SubHeader::new("What is Owenership", wio_content),
     chapter::SubHeader::new("The Stack and the Heap", tsah_content),
     chapter::SubHeader::new("Ownership Rules", or_content),
@@ -20,67 +20,7 @@ pub fn content(title: &str) {
     chapter::SubHeader::new("Return Values and Scope", rvas_content),
   ];
 
-  loop {
-    menu::section_title(title);
-    
-    let mut i:u8 = 1;
-    for sub_header in &sub_headers {
-      println!("{}. {}",i, sub_header.get_title());
-      i+= 1;
-    }
-
-    println!();
-
-    'prompting_header_loop: loop {
-      let selected_number = menu::post_menu_prompt();
-      let selected_number: u8 = match selected_number {
-        Ok(menu::PostMenuPromptAction::ListPreviousMenu) => {
-          menu::clear_screen();
-          return;
-        }
-        Ok(menu::PostMenuPromptAction::Quit) => std::process::exit(0),
-        Ok(menu::PostMenuPromptAction::Integer(int_input)) => {
-          if int_input as usize > sub_headers.len() {
-            continue;
-          }
-          int_input
-        }
-        Err(menu::PostMenuPromptError::InvalidOption(_)) => continue,
-        // Err(menu::PostMenuPromptError::Parse(err)) => {
-        //   eprintln!("Parse error: {err}");
-        //   std::process::exit(1);
-        // }
-        Err(menu::PostMenuPromptError::Io(err)) => {
-          eprintln!("I/O error: {err}");
-          std::process::exit(1);
-        }        
-      };
-
-      // Display selected header content.
-      for (index, value) in sub_headers.iter().enumerate() {
-        if (selected_number as usize) - 1 == index {
-          menu::clear_screen();
-          value.display_content();
-          break;
-        }
-      }
-
-      loop {
-        match menu::post_header_prompt() {
-          Ok(menu::PostHeaderPromptAction::ListPreviousMenu) => {
-            clear_screen();
-            break 'prompting_header_loop;
-          }
-          Ok(menu::PostHeaderPromptAction::Quit) => std::process::exit(0),
-          Err(menu::PostHeaderPromptError::InvalidOption(_)) => continue,
-          Err(menu::PostHeaderPromptError::Io(err)) => {
-            eprintln!("I/O error: {err}");
-            std::process::exit(1);
-          }
-        }
-      }
-    };
-  }
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
 }
 
 
@@ -537,9 +477,6 @@ fn sas_content() {
 
 // Subheader: Variables and Data interacting with Clones. Abbreviated as vadiwc.
 fn vadiwc_content() {
-  let solid_disc = "\u{2022}";
-  let two_spaces = "\u{2003}\u{2003}";
-
   // Subheader title.
   println!("{} \n", "Variables and Data Interacting with Clones".bright_blue().bold());
 

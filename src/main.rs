@@ -1,6 +1,4 @@
-use owo_colors::OwoColorize;
-
-use rust_topics::{chapter::{self, content::generate_chapters}, menu::{self, section_title}};
+use rust_topics::{chapter::{self, content::generate_chapters}, menu};
 
 fn main() {
   // rust_topics::chapter_four::four_point_one::display_contents();
@@ -11,6 +9,7 @@ fn main() {
   loop {
     println!("Rust topics\n");
 
+    // Display chapters.
     let mut line_number: u8 = 1;
     for chapter in &chapters {
       println!("{}. {}: {}", line_number, chapter.get_chapter(), chapter.get_title());
@@ -48,14 +47,13 @@ fn main() {
       // This part is about to select a chapter.
       // Initialized temporary values to both selected_chapter and selected_section.
       let mut selected_chapter  = &chapters[0];
-      if selected_number == 1 {
-        menu::clear_screen();
-        selected_chapter = &chapters[(selected_number as usize) - 1];
-      }
-      else if selected_number == 2 {
-        menu::clear_screen();
-        selected_chapter = &chapters[(selected_number as usize) - 1];
-      };
+      for (index, value) in chapters.iter().enumerate() {
+        if (selected_number as usize) - 1 == index {
+          menu::clear_screen();
+          selected_chapter = value;
+          break;
+        }
+      }      
       
       // This part is about to select a section under a selected chapter.
       let mut selected_section: &chapter::Section;
