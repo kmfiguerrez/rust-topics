@@ -1,7 +1,7 @@
 use owo_colors::OwoColorize;
 use crate::{chapter, menu};
 
-pub fn content(section_title: &str) {
+pub fn content(section_title: &str, section: &str) {
   let subheaders: [chapter::SubHeader; 6];
   subheaders = [
     chapter::SubHeader::new("The Slice Type", tst_content),
@@ -12,7 +12,7 @@ pub fn content(section_title: &str) {
     chapter::SubHeader::new("Summary", summary_content),
   ];
 
-  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 // Subheader contents below.
@@ -135,8 +135,7 @@ fn slas_content() {
     (Read-Only section of the binary). \
     This is also why string literals are immutable; {2} is an immutable reference. \n\n\
     In code sample: {3}, the type of parameter of the {4} function has been updated \
-    from {5} to {2}. So it's now using a string slice. \n\
-
+    from {5} to {2}. So it's now using a string slice.
   ",
     "let s = \"Hello, world!\";".bright_yellow().bold(),
     "s".bright_yellow().bold(),

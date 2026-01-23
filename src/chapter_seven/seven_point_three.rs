@@ -1,26 +1,26 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-pub fn display_title() {
-    println!("{} \n", "Paths for Referring to an Item in the Module Tree".bright_blue());
-}
+pub fn content(section_title: &str, section: &str) {
+  let subheaders: [chapter::SubHeader; 4];
+  subheaders = [
+    chapter::SubHeader::new("Paths for Referring to an Item in the Module Tree", primt_content),
+    chapter::SubHeader::new("Exposing Paths with the pub Keyword", epwpk_content),
+    chapter::SubHeader::new("Best Practices for Packages with a Binary and a Library", bpfpwbal_content),
+    chapter::SubHeader::new("Starting Relative Paths with super", srpws_content)
+  ];
 
-pub fn display_content() {
-    display_title();
-    // primt_content();
-    // epwpk_content();
-    // bpfpwbal_content()
-    srpws_content();
-
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 // Subheaders content below.
 
-// Subheader.
-// Paths for Referring to an Item in the Module Tree. Abbreviated as primt.
+// Subheader: Paths for Referring to an Item in the Module Tree. Abbreviated as primt.
 fn primt_content() {
     let solid_disc = "\u{2022}";
-    // let open_disc = "\u{25CB}";
     let two_spaces = "\u{2003}\u{2003}";
+
+    menu::subheader_title("Paths for Referring to an Item in the Module Tree");
 
     println!("\
     A path can take two forms: \n\
@@ -73,11 +73,9 @@ fn primt_content() {
     ");
 }
 
-// Subheader.
-// Exposing Paths with the pub Keyword. Abbreviated as epwpk.
+// Subheader: Exposing Paths with the pub Keyword. Abbreviated as epwpk.
 fn epwpk_content() {
-    // Subheader title.
-    println!("{} \n", "Exposing Paths with the pub Keyword".bright_blue().bold());
+    menu::subheader_title("Exposing Paths with the pub Keyword");
 
     println!("\
     Making the module public doesn’t make its contents public. \n\
@@ -91,13 +89,9 @@ fn epwpk_content() {
     );       
 }
 
-// Subheader.
-// Best Practices for Packages with a Binary and a Library. Abbreviated as bpfpwbal.
+// Subheader: Best Practices for Packages with a Binary and a Library. Abbreviated as bpfpwbal.
 fn bpfpwbal_content() {
-    // Subheader title.
-    println!("{} \n",
-    "Best Practices for Packages with a Binary and a Library".bright_blue().bold()
-    );
+    menu::subheader_title("Best Practices for Packages with a Binary and a Library");
 
     println!("\
     A package can contain both a {0} binary crate root as well as a \
@@ -124,11 +118,9 @@ fn bpfpwbal_content() {
     );
 }
 
-// Subheader.
-// Starting Relative Paths with super. Abbreviated as srpws.
+// Subheader: Starting Relative Paths with super. Abbreviated as srpws.
 fn srpws_content() {
-    // Subheader title.
-    println!("{} \n", "Starting Relative Paths with super".bright_blue().bold());
+    menu::subheader_title("Starting Relative Paths with super");
 
     println!("\
     We can construct relative paths that begin in the parent module, rather than the current \

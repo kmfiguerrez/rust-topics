@@ -1,27 +1,27 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-fn display_title() {
-    println!("{} \n",
-    "7.4 Bringing Paths into Scope with the use Keyword".bright_blue().bold(),
-    );
+pub fn content(section_title: &str, section: &str) {
+  let subheaders: [chapter::SubHeader; 7];
+  subheaders = [
+    chapter::SubHeader::new("Bringing Paths into Scope with the use Keyword", bpiswuk_content),
+    chapter::SubHeader::new("Creating Idiomatic use Paths", ciup_content),
+    chapter::SubHeader::new("Providing New Names with the as Keyword", pnnwak_content),
+    chapter::SubHeader::new("Re-exporting Names with pub use", renwpu_content),
+    chapter::SubHeader::new("Using External Packages", uep_content),
+    chapter::SubHeader::new("Using Nested Paths to Clean Up Large use Lists", unptculul_content),
+    chapter::SubHeader::new("The Glob Operator", tgo_content)
+  ];
+
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
-
-pub fn display_content(){
-    display_title();
-    // bpiswuk_content();
-    // ciup_content();
-    // pnnwak_content();
-    // renwpu_content();
-    // uep_content();
-    // unptculul_content();
-    tgo_content();
-}
-
 
 // Subheaders content below.
 
-// Bringing Paths into Scope with the use Keyword. Abbreviated as bpiswuk.
+// Subheader: Bringing Paths into Scope with the use Keyword. Abbreviated as bpiswuk.
 fn bpiswuk_content() {
+    menu::subheader_title("Bringing Paths into Scope with the use Keyword");
+
     println!("\
         Having to write out the paths to call functions can feel inconvenient and repetitive. \n\
         Fortunately, there’s a way to simplify this process: we can create a shortcut to a path with the {} keyword once, \n\
@@ -50,18 +50,11 @@ fn bpiswuk_content() {
 
 }
 
-
 // Subheader: Creating Idiomatic use Paths. Abbreviated ciup.
 fn ciup_content() {
     let solid_disc = "\u{2022}";
 
-    // Subheader title.
-    println!("{} \n", "Creating Idiomatic use Paths".bright_blue().bold());
-
-    // println!("\
-    //     See: https://doc.rust-lang.org/book/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#creating-idiomatic-use-paths \n\
-    //     for code example.
-    // ");
+    menu::subheader_title("Creating Idiomatic use Paths");
 
     println!("\
         Bringing the function’s parent module into scope with {0} means we have to specify the parent module when calling the function. \n\
@@ -114,8 +107,7 @@ fn ciup_content() {
 
 // Subheader: Providing New Names with the as Keyword. Abbreviated as pnnwak.
 fn pnnwak_content() {
-    // Subheader title.
-    println!("{} \n", "Providing New Names with the as Keyword".bright_blue().bold());
+    menu::subheader_title("Providing New Names with the as Keyword");
 
     println!("\
         There’s another solution to the problem of bringing two types of the same name into the same scope with \n\
@@ -143,8 +135,7 @@ fn pnnwak_content() {
 
 // Subheader: Re-exporting Names with pub use. Abbreviated as renwpu.
 fn renwpu_content() {
-    // Subheader title.
-    println!("{} \n", "Re-exporting Names with pub use".bright_blue().bold());
+    menu::subheader_title("Re-exporting Names with pub use");
 
     println!("\
         When we bring a name into scope with the {0} keyword, the name is private to the scope \
@@ -180,8 +171,7 @@ fn renwpu_content() {
 
 // Subheader: Using External Packages. Abbreviated as uep.
 fn uep_content() {
-    // Subheader title.
-    println!("{} \n", "Using External Packages".bright_blue().bold());
+    menu::subheader_title("Using External Packages");
 
     println!("\
         To use an external package, we add the package to our project’s dependencies by adding \n\
@@ -222,8 +212,7 @@ fn uep_content() {
 
 // Subheader: Using Nested Paths to Clean Up Large use Lists. Abbreviated as unptculul.
 fn unptculul_content() {
-    // Subheader title.
-    println!("{} \n", "Using Nested Paths to Clean Up Large use Lists".bright_blue().bold());
+    menu::subheader_title("Using Nested Paths to Clean Up Large use Lists");
 
     println!("\
         When bringing in multiple items from the same parent module, we can use a nested path to group those items together \n\
@@ -270,8 +259,7 @@ fn unptculul_content() {
 
 // Subheader: The Glob Operator. Abbreviated as  tgo.
 fn tgo_content() {
-    // Subheader title.
-    println!("{} \n", "The Glob Operator".bright_blue().bold());
+    menu::subheader_title("The Glob Operator");
 
     println!("\
         If we want to bring all public items defined in a path into scope, we can specify that path followed by the {} glob \n\

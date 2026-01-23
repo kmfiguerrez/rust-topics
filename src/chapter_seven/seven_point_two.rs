@@ -1,32 +1,25 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-const TITLE: &str = "Defining Modules to Control Scope and Privacy";
+pub fn content(section_title: &str, section: &str) {
+  let subheaders: [chapter::SubHeader; 2];
+  subheaders = [
+    chapter::SubHeader::new("Cheat Sheet", cs_content),
+    chapter::SubHeader::new("Grouping Related Code in Modules", grcim_content),
+  ];
 
-pub fn display_title() {
-    println!("{}", TITLE.bold().bright_blue());
-    println!("{}", "-".repeat(TITLE.len()).bright_blue());
-}
-
-pub fn display_content() {
-
-    display_title();
-
-
-    mcs_content();
-
-    grcim_content();
-
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 // Subheaders content
-// Modules Cheat Sheet. Abbreviated as mcs
-fn mcs_content() {
+// Subheader: Cheat Sheet. Abbreviated as cs
+fn cs_content() {
     let solid_disc = "\u{2022}";
     let open_disc = "\u{25CB}";
     let two_spaces = "\u{2003}\u{2003}";
 
     // Subheader title.
-    println!("{}", "Modules Cheat Sheet \n".blue().bold());
+    menu::subheader_title("Modules Cheat Sheet");
     
     println!("\
         {solid_disc} {0} When compiling a crate, the compiler first looks in the crate root file \n\
@@ -106,11 +99,9 @@ fn mcs_content() {
 
 }
 
-
-// Grouping Related Code in Modules. Abbreviated as grcim
+// Subheader: Grouping Related Code in Modules. Abbreviated as grcim
 fn grcim_content() {
-    // Subheader.
-    println!("{}", "Grouping Related Code in Modules \n".blue().bold());
+    menu::subheader_title("Grouping Related Code in Modules");
 
     println!("\
         {} let us organize code within a crate for readability and easy reuse. \n\

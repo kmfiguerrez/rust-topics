@@ -1,7 +1,7 @@
 use owo_colors::OwoColorize;
 use crate::{chapter, menu};
 
-pub fn content(section_title: &str) {
+pub fn content(section_title: &str, section: &str) {
   let subheaders: [chapter::SubHeader; 3];
   subheaders = [
     chapter::SubHeader::new("Concise Control flow with if let and let else", ccfwilale_content),
@@ -9,7 +9,7 @@ pub fn content(section_title: &str) {
     chapter::SubHeader::new("The Option<T> match Pattern", summary_content),
   ];
 
-  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 // Subheader contents below.

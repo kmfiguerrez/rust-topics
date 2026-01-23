@@ -1,18 +1,21 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-fn display_title() {
-    println!("{} \n", "Seperating Modules into Different Files".bright_blue().bold());
-}
+pub fn content(section_title: &str, section: &str) {
+  let subheaders: [chapter::SubHeader; 1];
+  subheaders = [
+    chapter::SubHeader::new("Seperating Modules into Different Files", smidf_content),
+  ];
 
-pub fn display_content() {
-    display_title();
-    smidf_content();
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 // Subheader contents below.
 
 // Subheader: Seperating Modules into Different Files. Abbreaviated as smidf.
 fn smidf_content() {
+    menu::subheader_title("Seperating Modules into Different Files");
+
     println!("\
         When modules get large, you might want to move their definitions to a separate file \
         to make the code easier to navigate. \n\

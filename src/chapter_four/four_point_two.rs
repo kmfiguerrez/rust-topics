@@ -1,7 +1,7 @@
 use owo_colors::OwoColorize;
 use crate::{chapter, menu};
 
-pub fn content(section_title: &str) {
+pub fn content(section_title: &str, section: &str) {
   let subheaders: [chapter::SubHeader; 5];
   subheaders = [
     chapter::SubHeader::new("References and borrowing", rab_content),
@@ -11,7 +11,7 @@ pub fn content(section_title: &str) {
     chapter::SubHeader::new("Dangling References", dr_content),
   ];  
 
-  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 // Subheader contents below.

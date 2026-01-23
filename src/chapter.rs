@@ -46,7 +46,8 @@ impl<'a> Chapter<'a> {
 
 pub struct Section<'a> {
   title: &'a str,
-  content: fn(&str)
+  section: &'a str,
+  content: fn(title: &str, section: &str)
 }
 
 impl<'a> Section<'a> {
@@ -55,14 +56,19 @@ impl<'a> Section<'a> {
     self.title
   }
 
+  pub fn get_section(&self) -> &'a str {
+    self.section
+  }  
+
   pub fn display_content(&self) {
-    (self.content)(self.get_title());
+    (self.content)(self.get_title(), self.get_section());
   }
 
   // Associate Functions.
-  pub fn new(title: &'a str, content: fn(&str)) -> Self {
+  pub fn new(title: &'a str, section: &'a str, content: fn(&str, &str)) -> Self {
     Self {
       title,
+      section,
       content
     }
   }
@@ -101,9 +107,9 @@ impl<'a> SubHeader<'a> {
   /// 
   /// * `subheaders` - An Array of SubHeader to display.
   /// * `section_title` - The title of the selected section.
-  pub fn prompt_subheader(subheaders: &[SubHeader], section_title: &str) {
+  pub fn prompt_subheader(subheaders: &[SubHeader], section_title: &str, section: &str) {
     loop {
-      menu::section_title(section_title);
+      menu::section_title(section_title, section);
       
       let mut i:u8 = 1;
       for subheader in subheaders {

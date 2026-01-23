@@ -2,7 +2,7 @@ use crate::{chapter, menu};
 use owo_colors::OwoColorize;
 
 
-pub fn content(section_title: &str) {
+pub fn content(section_title: &str, section: &str) {
   let subheaders: [chapter::SubHeader; 13];
   subheaders = [
     chapter::SubHeader::new("What is Owenership", wio_content),
@@ -20,7 +20,7 @@ pub fn content(section_title: &str) {
     chapter::SubHeader::new("Return Values and Scope", rvas_content),
   ];
 
-  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 

@@ -156,8 +156,8 @@ pub fn chapter_title(title: &str, chapter: &str) {
 }
 
 /// This function will format a literal string into a style desired for a title.
-pub fn section_title(title: &str) {
-  let section_title = format!("Section: {}", title);
+pub fn section_title(title: &str, section: &str) {
+  let section_title = format!("{}: {}", section, title);
   println!("{}", section_title.bright_blue().bold());
   println!("{} \n", "-".repeat(section_title.len()).bright_blue());  
 }

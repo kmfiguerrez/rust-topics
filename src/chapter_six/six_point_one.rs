@@ -2,7 +2,7 @@ use owo_colors::OwoColorize;
 
 use crate::{chapter, menu};
 
-pub fn content(section_title: &str) {
+pub fn content(section_title: &str, section: &str) {
   let subheaders: [chapter::SubHeader; 6];
   subheaders = [
     chapter::SubHeader::new("Defining an Enum", dae_content),
@@ -13,7 +13,7 @@ pub fn content(section_title: &str) {
     chapter::SubHeader::new("Benefits of Option<T> over null", bon_content),
   ];
 
-  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 // Subheaders content below.
