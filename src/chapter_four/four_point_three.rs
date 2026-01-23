@@ -1,12 +1,18 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-pub fn content(title: &str) {
-  // tst_content();
-  // ss_content();
-  // rrs_content();
-  // slas_content();
-  // os_content();
-  summary_content();
+pub fn content(section_title: &str) {
+  let subheaders: [chapter::SubHeader; 6];
+  subheaders = [
+    chapter::SubHeader::new("The Slice Type", tst_content),
+    chapter::SubHeader::new("String Slices", ss_content),
+    chapter::SubHeader::new("Rust range syntax", rrs_content),
+    chapter::SubHeader::new("String Literals as Slices", slas_content),
+    chapter::SubHeader::new("Other Slices", os_content),
+    chapter::SubHeader::new("Summary", summary_content),
+  ];
+
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
 }
 
 // Subheader contents below.
@@ -14,7 +20,7 @@ pub fn content(title: &str) {
 // Subheader: The Slice Type. Abbreviated as tst.
 fn tst_content() {
   // Subheader title.
-  println!("{} \n", "The Slice Type".bright_blue().bold());
+  menu::subheader_title("The Slice Type");
 
   println!(
     "{0} let you reference a contiguous sequence of elements in a collection. \n\
@@ -32,7 +38,7 @@ fn ss_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{0} \n", "String Slices".bright_blue().bold());
+  menu::subheader_title("String Slices");
 
   println!(
     "A {0} is a reference to a contiguous sequence of the elements of a String. \n\n\
@@ -65,7 +71,7 @@ fn ss_content() {
 fn rrs_content() {
   let solid_disc = "\u{2022}";
   // Subheader title.
-  println!("{} \n", "Rust's .. range syntax".bright_blue().bold());
+  menu::subheader_title("Rust's .. range syntax");
 
   println!(
     "With Rust's {0} range syntax, if you want to start at index 0, you can drop the value \
@@ -119,7 +125,7 @@ fn slas_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "String Literal as Slices".bright_blue().bold());
+  menu::subheader_title("String Literal as Slices");
 
   println!(
     "Recall that we talked about string literals being stored inside the binary. Now that \
@@ -184,7 +190,7 @@ fn slas_content() {
 // Subheader: Other Slices. Abbreviated as os.
 fn os_content() {
   // Subheader title.
-  println!("{} \n", "Other Slices".bright_blue().bold());
+  menu::subheader_title("Other Slices");
 
   println!(
     "String slices, as you might imagine, are specific to strings. But there’s a \
@@ -210,7 +216,7 @@ fn os_content() {
 // Subheader: Summary.
 fn summary_content() {
   // Subheader title.
-  println!("{} \n", "Summary".bright_blue().bold());
+  menu::subheader_title("Summary");
 
   println!(
     "The concepts of ownership, borrowing, and slices ensure memory safety in Rust \

@@ -1,4 +1,4 @@
-use crate::chapter;
+use crate::{chapter, menu};
 use owo_colors::OwoColorize;
 
 
@@ -28,8 +28,7 @@ pub fn content(section_title: &str) {
 
 // Subheader 4.1: What is Ownership?. Abbreviated as wio.
 fn wio_content() {
-  let subheader_title = "4.1 What is Ownership?";
-  println!("{} \n", subheader_title.bright_blue().bold());
+  menu::subheader_title("What is Ownership?");
 
   println!("\
     {0} is Rust's most unique feature and it enables Rust to make memory safety guarantees without \
@@ -64,7 +63,8 @@ fn wio_content() {
 // Subheader: The Stack and the Heap. Abbreviated as tsah.
 fn tsah_content() {
   // Subheader title.
-  println!("{} \n", "The Stack and the Heap".bright_blue().bold());
+  menu::subheader_title("The Stack and the Heap");
+
 
   println!(
     "To understand ownership, you also need to understand how Rust manages memory. \n\
@@ -148,7 +148,8 @@ fn tsah_content() {
 // Subheader: Ownership Rules. Abbreviated as or.
 fn or_content() {
   // Subheader title.
-  println!("{} \n", "Ownership Rules".bright_blue().bold());
+  menu::subheader_title("Ownership Rules");
+
 
   println!(
     "Ownership has three main rules that govern how it works: \n\
@@ -166,7 +167,8 @@ fn vs_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Variable Scope".bright_blue().bold());
+  menu::subheader_title("Variable Scope");
+
 
   println!(
     "We'll look at the scope of some variables. A {0} is the range within a program for which an item is valid. \n\
@@ -188,7 +190,7 @@ fn tst_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "The String Type".bright_blue().bold());
+  menu::subheader_title("The String Type");
 
   println!(
     "Rust has multiple string types: \n\
@@ -225,7 +227,7 @@ fn mal_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Memory and Allocation".bright_blue().bold());
+  menu::subheader_title("Memory and Allocation");
 
   println!(
     "So, what's the difference between string literals and String? \
@@ -289,7 +291,7 @@ fn vadiwm_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Variables and Data Interacting with Move".bright_blue().bold());
+  menu::subheader_title("Variables and Data Interacting with Move");
 
   println!(
     "Multiple variables can interact with the same data in different ways in Rust. \
@@ -400,7 +402,7 @@ fn dcvssc_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Deep Copy vs Shallow Copy".bright_blue().bold());
+  menu::subheader_title("Deep Copy vs Shallow Copy");
 
   println!(
     "Let's use this code sample as a reference: \n\n\
@@ -441,7 +443,7 @@ fn sas_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Scope and Assignment".bright_blue().bold());
+  menu::subheader_title("Scope and Assignment");
 
   println!(
     "When you assign a completely new value to an existing variable, Rust will call \
@@ -478,7 +480,7 @@ fn sas_content() {
 // Subheader: Variables and Data interacting with Clones. Abbreviated as vadiwc.
 fn vadiwc_content() {
   // Subheader title.
-  println!("{} \n", "Variables and Data Interacting with Clones".bright_blue().bold());
+  menu::subheader_title("Variables and Data Interacting with Clones");
 
   println!(
     "If we do want to deeply copy the heap data of the {2}, not just the stack data, \
@@ -514,7 +516,7 @@ fn sod_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Stack-Only Data: Copy Trait".bright_blue().bold());
+  menu::subheader_title("Stack-Only Data: Copy Trait");
 
   println!(
     "Consider this code, for example: \n\n\
@@ -588,7 +590,7 @@ fn oaf_content() {
   let solid_disc = "\u{2022}";
 
   // Subheader title.
-  println!("{} \n", "Ownership and Functions".bright_blue().bold());
+  menu::subheader_title("Ownership and Functions");
 
   println!(
     "The mechanics of passing a value to a function are similar to those when assigning \
@@ -621,7 +623,7 @@ fn rvas_content() {
   // let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Return Values and Scope".bright_blue().bold());
+  menu::subheader_title("Return Values and Scope");
 
   println!(
     "Returning values can also transfer ownership. \n\

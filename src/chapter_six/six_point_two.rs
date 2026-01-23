@@ -1,11 +1,18 @@
 use owo_colors::OwoColorize;
 
-pub fn content(title: &str) {
-  // tmcfc_content();
-  // ptbtv_content();
-  // tomp_content();
-  // mae_content();
-  capaup_content();
+use crate::{chapter, menu};
+
+pub fn content(section_title: &str) {
+  let subheaders: [chapter::SubHeader; 5];
+  subheaders = [
+    chapter::SubHeader::new("The match Control Flow Construct", tmcfc_content),
+    chapter::SubHeader::new("Patterns That Bind to Values", ptbtv_content),
+    chapter::SubHeader::new("The Option<T> match Pattern", tomp_content),
+    chapter::SubHeader::new("Matches Are Exhaustive", mae_content),
+    chapter::SubHeader::new("Catch-All Patterns and the _ Placeholder", capaup_content),
+  ];
+
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
 }
 
 // Subheader contents below.
@@ -15,7 +22,7 @@ fn tmcfc_content() {
   let solid_disc = "\u{2022}";
   let two_spaces = "\u{2003}\u{2003}";  
   // Subheader title.
-  println!("{} \n", "The match Control Flow Construct".bright_blue().bold());
+  menu::subheader_title("The match Control Flow Construct");
 
   println!(
     "Rust has an extremely powerful control flow construct called {0} that allows you \
@@ -78,7 +85,7 @@ fn tmcfc_content() {
 // Subheader: Patterns That Bind to Values. Abbreviated as ptbtv.
 fn ptbtv_content() {
   // Subheader title.
-  println!("{} \n", "Patterns That Bind to Values".bright_blue().bold());
+  menu::subheader_title("Patterns That Bind to Values");
 
   println!(
     "Another useful feature of match arms is that they can bind to the parts of the values \
@@ -93,7 +100,7 @@ fn ptbtv_content() {
 // Subheader: The Option<T> match Pattern. Abbreviated as tomp.
 fn tomp_content() {
   // Subheader title.
-  println!("{} \n", "The Option<T> match Pattern".bright_blue().bold());
+  menu::subheader_title("The Option<T> match Pattern");
 
   println!(
     "We can also get the inner {0} value out of the {1} case (variant) when using \
@@ -121,7 +128,7 @@ fn tomp_content() {
 // Subheader: Matches Are Exhaustive. Abbreviated as mae.
 fn mae_content() {
   // Subheader title.
-  println!("{} \n", "Matches Are Exhaustive".bright_blue().bold());
+  menu::subheader_title("Matches Are Exhaustive");
 
   println!(
     "There’s one other aspect of match we need to discuss: The arms’ patterns must cover \
@@ -152,7 +159,7 @@ fn capaup_content() {
   let solid_disc = "\u{2022}";
 
   // Subheader title.
-  println!("{} \n", "Catch-All Patterns and the _ Placeholder".bright_blue().bold());
+  menu::subheader_title("Catch-All Patterns and the _ Placeholder");
 
   println!(
     "Using enums, we can also take special actions for a few particular values, but \

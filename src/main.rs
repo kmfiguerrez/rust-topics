@@ -21,12 +21,13 @@ fn main() {
     'prompting_chapter_loop: loop {
       let selected_number = menu::integer_prompt();
       let selected_number = match selected_number {
-        Ok(num) => {
+        Ok(int_input) => {
           // println!("You selected {num}");
-          if num as usize > chapters.len() {
+          if int_input == 0 {continue;}
+          if int_input as usize > chapters.len() {
             continue;
           }
-          num
+          int_input
         }
         Err(menu::IntegerPromptError::Quit) => {
           println!("Exiting program safely...");

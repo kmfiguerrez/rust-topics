@@ -1,9 +1,15 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-pub fn content(title: &str) {
-  // ccfwilale_content();
-  le_content();
-  // summary_content();
+pub fn content(section_title: &str) {
+  let subheaders: [chapter::SubHeader; 3];
+  subheaders = [
+    chapter::SubHeader::new("Concise Control flow with if let and let else", ccfwilale_content),
+    chapter::SubHeader::new("Staying on the \"Happy Path\" with let...else", le_content),
+    chapter::SubHeader::new("The Option<T> match Pattern", summary_content),
+  ];
+
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
 }
 
 // Subheader contents below.
@@ -11,7 +17,7 @@ pub fn content(title: &str) {
 // Subheader: Concise Control flow with if let and let else. Abbreviated as ccfwilale.
 fn ccfwilale_content() {
   // Subheader title.
-  println!("{} \n", "Concise Control flow with if let and let else".bright_blue().bold());
+  menu::subheader_title("Concise Control flow with if let and let else");
 
   println!(
     "The {0} syntax lets you combine {1} and {2} into a less verbose way to handle \
@@ -104,7 +110,7 @@ fn le_content() {
   let solid_disc = "\u{2022}";
 
   // Subheader title.
-  println!("{} \n", "Staying on the \"Happy Path\" with let...else".bright_blue().bold());
+  menu::subheader_title("Staying on the \"Happy Path\" with let...else");
 
   println!(
     "The {0} syntax provides a way to handle unexpected values early and keep \
@@ -195,21 +201,20 @@ fn le_content() {
 // Subheader: Summary.
 fn summary_content() {
   let solid_disc = "\u{2022}";
+  menu::subheader_title("Summary");
 
   println!(
-    "{} \n\n\
-    {solid_disc} We use enums to create custom types that can be one of a set of enumerated values. \n\
-    {solid_disc} We’ve shown how the standard library’s {1} type helps you use the type system to prevent errors. \n\
-    {solid_disc} When enum values have data inside them, you can use {2} or {3} to extract and use those values, \
+    "{solid_disc} We use enums to create custom types that can be one of a set of enumerated values. \n\
+    {solid_disc} We’ve shown how the standard library’s {0} type helps you use the type system to prevent errors. \n\
+    {solid_disc} When enum values have data inside them, you can use {1} or {2} to extract and use those values, \
     depending on how many cases you need to handle. \n\
-    {solid_disc} The {3} syntax is a concise way to handle values that match one pattern while ignoring the rest. \n\
-    {solid_disc} We can use {4} with {3} to perform some computation when a particular value is present, \
+    {solid_disc} The {2} syntax is a concise way to handle values that match one pattern while ignoring the rest. \n\
+    {solid_disc} We can use {3} with {2} to perform some computation when a particular value is present, \
     and return a default value or perform default action otherwise. \n\
-    {solid_disc} The {5} syntax provides a way to handle unexpected values early and binds the value that a variant holds \
+    {solid_disc} The {4} syntax provides a way to handle unexpected values early and binds the value that a variant holds \
     in the outer scope (not inside a block) and keep the rest of the code at \
     the main (top) indentation level, which is sometimes called the \"happy path.\"
   ",
-    "SUMMARY".bright_blue().bold(),
     "Option<T>".bright_yellow().bold(),
     "match".bright_yellow().bold(),
     "if let".bright_yellow().bold(),

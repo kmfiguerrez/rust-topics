@@ -1,19 +1,19 @@
 use owo_colors::OwoColorize;
 
-pub fn content(title: &str) {
-  chapter_six_title();
-  // dae_content();
-  // ev_content();
-  // oaoeos_content();
-  // dem_content();
-  // toe_content();
-  bon_content();
-}
+use crate::{chapter, menu};
 
-fn chapter_six_title() {
-  let title = "Enums and Pattern Matching";
-  println!("{}", title.bright_blue().bold());
-  println!("{} \n", "-".repeat(title.len()).bright_blue());
+pub fn content(section_title: &str) {
+  let subheaders: [chapter::SubHeader; 6];
+  subheaders = [
+    chapter::SubHeader::new("Defining an Enum", dae_content),
+    chapter::SubHeader::new("Enum Values", ev_content),
+    chapter::SubHeader::new("Other advantages of enums over struct", oaoeos_content),
+    chapter::SubHeader::new("Defining Enum methods", dem_content),
+    chapter::SubHeader::new("The Option Enum", toe_content),
+    chapter::SubHeader::new("Benefits of Option<T> over null", bon_content),
+  ];
+
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
 }
 
 // Subheaders content below.
@@ -23,7 +23,7 @@ fn dae_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Defining an Enum".bright_blue().bold());
+  menu::subheader_title("Defining an Enum");
 
   println!(
     "Where structs give you a way of grouping together related fields and data, like a \
@@ -126,7 +126,7 @@ fn dae_content() {
 // Subheader: Enum Values. Abbreviated as ev.
 fn ev_content() {
   // Subheader title
-  println!("{} \n", "Enum Values".bright_blue().bold());
+  menu::subheader_title("Enum Values");
 
   println!(
     "We can create instances of each of the two variants of IpAddrKing like this: \n\n\
@@ -200,7 +200,7 @@ fn ev_content() {
 // I extracted this content from the Enum Values section.
 fn oaoeos_content() {
   // Subheader title.
-  println!("{} \n", "Other advantages of enums over struct".bright_blue().bold());
+  menu::subheader_title("Other advantages of enums over struct");
 
   println!(
     "There’s another advantage to using an enum rather than a struct: Each variant can \
@@ -251,7 +251,7 @@ fn oaoeos_content() {
 // I extracted this part from the Other advantages of enums over struct section.
 fn dem_content() {
   // Subheader title.
-  println!("{} \n", "Defining Enum methods".bright_blue().bold());
+  menu::subheader_title("Defining Enum methods");
 
   println!(
     "There is one more similarity between enums and structs: Just as we’re able \
@@ -288,7 +288,7 @@ fn dem_content() {
 // Subheader: The Option Enum. Abbreviated as toe.
 fn toe_content() {
   // Subheader title.
-  println!("{} \n", "The Option Enum".bright_blue().bold());
+  menu::subheader_title("The Option Enum");
 
   println!(
     "This section explores a case study of {0}, which is another enum defined by the \
@@ -399,7 +399,7 @@ fn toe_content() {
 // I extracted this part from the The Option Enum section.
 fn bon_content() {
   // Subheader title.
-  println!("{} \n", "Benefits of Option<T> over null".bright_blue().bold());
+  menu::subheader_title("Benefits of Option<T> over null");
 
   println!(
     "When we have a {} value, we know that a value is present, and the value is held within the {0}. \n\

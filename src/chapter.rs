@@ -122,6 +122,7 @@ impl<'a> SubHeader<'a> {
           }
           Ok(menu::PostMenuPromptAction::Quit) => std::process::exit(0),
           Ok(menu::PostMenuPromptAction::Integer(int_input)) => {
+            if int_input == 0 {continue;}
             if int_input as usize > subheaders.len() {
               continue;
             }

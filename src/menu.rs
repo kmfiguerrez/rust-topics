@@ -148,16 +148,22 @@ pub fn post_header_prompt() -> Result<PostHeaderPromptAction, PostHeaderPromptEr
   }
 }
 
-// This function will format a literal string into a style desired for a title.
+/// This function will format a literal string into a style desired for a title.
 pub fn chapter_title(title: &str, chapter: &str) {
   let chapter_title = format!("{}: {}", chapter, title);
   println!("{}", chapter_title.bright_blue().bold());
   println!("{} \n", "-".repeat(chapter_title.len()).bright_blue());
 }
 
-
+/// This function will format a literal string into a style desired for a title.
 pub fn section_title(title: &str) {
   let section_title = format!("Section: {}", title);
   println!("{}", section_title.bright_blue().bold());
   println!("{} \n", "-".repeat(section_title.len()).bright_blue());  
+}
+
+/// This function will format a literal string into a style desired for a title.
+pub fn subheader_title(title: &str) {
+  println!("{}", title.bright_blue().bold());
+  println!("{} \n", "-".repeat(title.len()).bright_blue());  
 }

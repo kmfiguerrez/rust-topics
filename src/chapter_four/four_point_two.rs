@@ -1,11 +1,17 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-pub fn content(title: &str) {
-  // rab_content();
-  // mr_content();
-  // cbtcs_content();
-  // imr_content();
-  dr_content();
+pub fn content(section_title: &str) {
+  let subheaders: [chapter::SubHeader; 5];
+  subheaders = [
+    chapter::SubHeader::new("References and borrowing", rab_content),
+    chapter::SubHeader::new("Mutable References", mr_content),
+    chapter::SubHeader::new("Curly Brackets to create scopes", cbtcs_content),
+    chapter::SubHeader::new("Immutable and Mutable references", imr_content),
+    chapter::SubHeader::new("Dangling References", dr_content),
+  ];  
+
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title);
 }
 
 // Subheader contents below.
@@ -15,7 +21,7 @@ fn rab_content() {
   let solid_disc = "\u{2022}";
 
   // Subheader title.
-  println!("{} \n", "References and Borrowing".bright_blue().bold());
+  menu::subheader_title("References and Borrowing");
 
   println!(
     "The issue with returning ownership from functions is that we have to return the \
@@ -75,7 +81,7 @@ fn mr_content() {
   let two_spaces = "\u{2003}\u{2003}";
   
   // Subheader title.
-  println!("{} \n", "Mutable References".bright_blue().bold());
+  menu::subheader_title("Mutable References");
 
   println!(
     "{0}. We’re not allowed \
@@ -150,15 +156,15 @@ fn mr_content() {
 // Subheader: Curly Brackets to create scopes. Abbreviated as cbtcs.
 // I extracted this section out of the Mutable References section.
 fn cbtcs_content() {
+  menu::subheader_title("Curly Brackets to create scopes");
+
   println!(
-    "{0} \n\n\
-    As always, we can use curly brackets to create a new scope, allowing for multiple \
+    "As always, we can use curly brackets to create a new scope, allowing for multiple \
     mutable references, just not simultaneous ones: \n\n\
-    {1} \n\n\
+    {0} \n\n\
     Read more? \n\
-    See: {2}
+    See: {1}
   ",
-    "Curly brackets to create scopes".bright_blue().bold(),
     "let mut s = String::from(\"hello\");\n\n\
     {\n\
     \tlet r1 = &mut s; \n\
@@ -174,7 +180,7 @@ fn imr_content() {
   let solid_disc = "\u{2022}";
 
   // Subheader title.
-  println!("{} \n", "Immutable and Mutable references".bright_blue().bold());
+  menu::subheader_title("Immutable and Mutable references");
 
   println!(
     "Rust enforces a similar rule for combining mutable and immutable references. \n\
@@ -246,7 +252,7 @@ fn dr_content() {
   let solid_disc = "\u{2022}";
 
   // Subheader title.
-  println!("{} \n", "Dangling References".bright_blue().bold());
+  menu::subheader_title("Dangling References");
 
   println!(
     "In languages with pointers, it’s easy to erroneously create a {0}—a pointer \
