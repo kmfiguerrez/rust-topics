@@ -1,8 +1,15 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-pub fn display_contents() {
-  // tpontp_content();
-  gfeh_content();
+pub fn content(section_title: &str, section: &str) {
+  let subheaders: [chapter::SubHeader; 3];
+  subheaders = [
+    chapter::SubHeader::new("To panic! or Not to panic!", tpontp_content),
+    chapter::SubHeader::new("Guidelines for Error Handling", gfeh_content),
+    chapter::SubHeader::new("Custom Types for Validation", ctfv_content),
+  ];
+
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 // Subheaders content below.
@@ -10,7 +17,7 @@ pub fn display_contents() {
 // Subheader: To panic! or Not to panic!. Abbreviated as tpontp.
 fn tpontp_content() {
   // Subheader title.
-  println!("{} \n", "To panic! or Not to panic!".bright_blue().bold());
+  menu::subheader_title("To panic! or Not to panic!");
 
   println!(
     "So, how do you decide when you should call {0} and when you should return {1}? \n\
@@ -40,7 +47,7 @@ fn gfeh_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Guidelines for Error Handling".bright_blue().bold());
+  menu::subheader_title("Guidelines for Error Handling");
 
   println!(
     "It’s advisable to have your code panic when it's possible that your code could \
@@ -77,7 +84,7 @@ fn gfeh_content() {
 // Subheader: Custom Types for Validation. Abbreviated as ctfv.
 fn ctfv_content() {
   // Subheader title.
-  println!("{} \n", "Custom Types for Validation".bright_blue().bold());
+  menu::subheader_title("Custom Types for Validation");
 
   println!(
     "See: {}, for code samples and further information.

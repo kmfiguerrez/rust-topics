@@ -100,7 +100,7 @@ fn bpfpwbal_content() {
     have just enough code in the binary crate to start an executable that calls code defined in \
     the library crate. \n\
     This lets other projects benefit from the most functionality that the package provides \
-    because the library crate’s code can be shared.
+    because the library crate's code can be shared.
     ",
     "src/main.rs".italic(),
     "src/lib.rs".italic()
@@ -112,7 +112,7 @@ fn bpfpwbal_content() {
     name of the package. \n\
     The binary crate becomes a user of the library crate just like a completely external \
     crate would use the library crate: it can only use the public API. \n\
-    This helps you design a good API; not only are you the author, you’re also a client!
+    This helps you design a good API; not only are you the author, you're also a client!
     ",
     "src/lib.rs".italic()
     );

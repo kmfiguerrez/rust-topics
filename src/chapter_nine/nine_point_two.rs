@@ -1,12 +1,18 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-pub fn display_contents() {
-  // rewr_content();
-  // mode_content();
-  // sfpoe_content();
-  // pe_content();
-  // tqmos_content();
-  wtutqmo_content();
+pub fn content(section_title: &str, section: &str) {
+  let subheaders: [chapter::SubHeader; 6];
+  subheaders = [
+    chapter::SubHeader::new("Recoverable Errors with Result", rewr_content),
+    chapter::SubHeader::new("Matching on Different Errors", mode_content),
+    chapter::SubHeader::new("Shortcuts for Panic on Error", sfpoe_content),
+    chapter::SubHeader::new("Propagating Errors", pe_content),
+    chapter::SubHeader::new("The ? Operator Shortcut", tqmos_content),
+    chapter::SubHeader::new("Where to Use the ? Operator", wtutqmo_content),
+  ];
+
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
 
 // Subheaders content below.
@@ -17,7 +23,7 @@ fn rewr_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
 // Subheader title.
-  println!("{} \n", "Recoverable Errors with Result".bright_blue().bold());
+  menu::subheader_title("Recoverable Errors with Result");
 
   println!(
     "Most errors aren’t serious enough to require the program to stop entirely. \n\
@@ -82,7 +88,7 @@ fn rewr_content() {
 // Subheader: Matching on Different Errors. Abbreviated as mode.
 fn mode_content() {
   // Subheader title.
-  println!("{} \n", "Matching on Different Errors".bright_blue().bold());
+  menu::subheader_title("Matching on Different Errors");
 
   println!("\
     When you call a function or code that returns a {0} value, you’ll often want to take different \
@@ -99,7 +105,7 @@ fn mode_content() {
 // Subheader: Shortcuts for Panic on Error. Abbreviated as sfpoe.
 fn sfpoe_content() {
   // Subheader title.
-  println!("{} \n", "Shortcuts for Panic on Error".bright_blue().bold());
+  menu::subheader_title("Shortcuts for Panic on Error");
 
   println!(
     "Using {0} works well enough, but it can be a bit verbose and doesn’t always communicate intent well. \n\
@@ -161,10 +167,10 @@ fn sfpoe_content() {
 
 }
 
-// Subheader: Propagating Erros. Abrreviated as pe.
+// Subheader: Propagating Errors. Abrreviated as pe.
 fn pe_content() {
   // Subheader title.
-  println!("{} \n", "Propagating Errors".bright_blue().bold());
+  menu::subheader_title("Propagating Errors");
 
   println!(
     "When a function’s implementation calls something that might fail, instead of \
@@ -187,7 +193,8 @@ fn tqmos_content() {
   let solid_disc = "\u{2022}";
 
   // Subheader title.
-  println!("{} \n", "The ? Operator Shortcut".bright_blue().bold());
+  menu::subheader_title("The ? Operator Shortcut");
+
 
   println!(
     "Using {0} to propagate errors is such a common pattern that Rust has special syntax \
@@ -292,7 +299,7 @@ fn wtutqmo_content() {
   let two_spaces = "\u{2003}\u{2003}";
 
   // Subheader title.
-  println!("{} \n", "Where to Use the ? Operator".bright_blue().bold());
+  menu::subheader_title("Where to Use the ? Operator");
 
   println!(
     "The {0} operator can only be used in functions whose return type is compatible \

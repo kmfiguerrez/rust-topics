@@ -1,9 +1,14 @@
 use owo_colors::OwoColorize;
+use crate::{chapter, menu};
 
-pub fn display_contents() {
-  uewp_content();
+pub fn content(section_title: &str, section: &str) {
+  let subheaders: [chapter::SubHeader; 1];
+  subheaders = [
+    chapter::SubHeader::new("Unrecoverable Errors with panic!", uewp_content),
+  ];
+
+  chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
 }
-
 
 // Subheaders content below.
 
@@ -12,7 +17,8 @@ fn uewp_content() {
   let solid_disc = "\u{2022}";
 
   // Subheader title.
-  println!("{} \n", "Unrecoverable Errors with panic!".bright_blue().bold());
+  menu::subheader_title("Unrecoverable Errors with panic!");
+
 
   // Subheader content.
   println!(
