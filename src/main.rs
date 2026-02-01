@@ -4,6 +4,12 @@ fn main() {
   // rust_topics::chapter_four::four_point_one::display_contents();
   let chapters = generate_chapters();
   
+  chapter::Chapter::prompt_chapters(&chapters);
+}
+
+fn prompt_chapters() {
+  let chapters = generate_chapters();
+
   // This outer loop will display the chapters and then proceed to selecting a
   // chapter then to section down to headers.
   loop {
@@ -97,7 +103,7 @@ fn main() {
         selected_section.display_content();
       }
     }
-  }
+  }  
 }
 
 
