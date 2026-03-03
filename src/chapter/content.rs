@@ -1,7 +1,7 @@
-use crate::{chapter::{self, Chapter}, chapter_four, chapter_nine, chapter_seven, chapter_six, chapter_ten};
+use crate::{chapter::{self, Chapter}, chapter_eleven, chapter_four, chapter_nine, chapter_seven, chapter_six, chapter_ten};
 
-pub fn generate_chapters() -> [Chapter<'static>; 5] {
-  let chapters: [Chapter<'_>; 5] = [
+pub fn generate_chapters() -> [Chapter<'static>; 6] {
+  let chapters: [Chapter<'_>; 6] = [
     chapter::Chapter::new(
       "Understanding Ownership",
       "Chapter 4",
@@ -26,7 +26,12 @@ pub fn generate_chapters() -> [Chapter<'static>; 5] {
     "Generic Types, Traits, and lifetimes",
     "Chapter 10",
     chapter_ten::section::generate_sections()
-    )
+    ),
+    chapter::Chapter::new(
+    "Writing Automated Tests",
+    "Chapter 11",
+    chapter_eleven::section::generate_sections()
+    )    
   ];
 
   chapters
