@@ -22,7 +22,7 @@ pub fn content(section_title: &str, section: &str) {
 
 // Header: Controlling How Tests Are Run. Abbreviated as chtar.
 fn chtar_content() {
-  menu::subheader_title("Controlling How Tests Are Run");
+  menu::subheader_title("Section: Controlling How Tests Are Run, Introduction");
 
   println!(
     "Just as {0} compiles your code and then runs the resultant binary, {1} compiles your code in test mode and runs \

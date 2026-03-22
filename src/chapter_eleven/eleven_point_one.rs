@@ -5,7 +5,7 @@ use crate::{chapter, menu};
 pub fn content(section_title: &str, section: &str) {
   let subheaders: [chapter::SubHeader; 8];
   subheaders = [
-    chapter::SubHeader::new("Introduction", introduction_content),
+    chapter::SubHeader::new("Chapter_Introduction", introduction_content),
     chapter::SubHeader::new("How to Write Tests", htwt_content),
     chapter::SubHeader::new("Structuring Test Functions", stf_content),
     chapter::SubHeader::new("Checking Results with assert!", crwa_content),
@@ -395,7 +395,6 @@ fn acfm_content() {
   ",
     "REMEMBER".bright_white().bold(),
     "format!".bright_yellow().bold(),
-
   )
 }
 
