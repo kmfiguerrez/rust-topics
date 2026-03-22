@@ -3,7 +3,7 @@ use crate::{chapter, menu};
 
 
 pub fn content(section_title: &str, section: &str) {
-  let subheaders: [chapter::SubHeader; 7];
+  let subheaders: [chapter::SubHeader; 8];
   subheaders = [
     chapter::SubHeader::new("Introduction", introduction_content),
     chapter::SubHeader::new("How to Write Tests", htwt_content),
@@ -12,6 +12,8 @@ pub fn content(section_title: &str, section: &str) {
     chapter::SubHeader::new("Testing Equality with assert_eq! and assert_ne!", tewegane_content),
     chapter::SubHeader::new("Adding Custom Failure Messages", acfm_content),
     chapter::SubHeader::new("Checking for Panics with should_panic", cfpws_content),
+    chapter::SubHeader::new("Using Result<T, E> in Tests", urit_content),
+
   ];
 
   chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
@@ -451,4 +453,37 @@ fn cfpws_content() {
   )
 }
 
- 
+// Header: Using Result<T, E> in Tests. Abbreviated as urit.
+fn urit_content() {
+  menu::subheader_title("Using Result<T, E> in Tests");
+
+  println!(
+    "We can also write tests that use {0}\n\n\
+    See: {1}, for code sample.\n\n\
+    The {2} function now has the {3} return type.\n\
+    In the body of the function, rather than calling the {4} macro, we return {5} when the test passes and an {6} with \
+    a {7} inside when the test fails.
+  ",
+    "Result<T, E>!".bright_yellow().bold(),
+    "https://doc.rust-lang.org/book/ch11-01-writing-tests.html#using-resultt-e-in-tests".cyan(),
+    "it_works".bright_yellow().bold(),
+    "Result<(), String>".bright_yellow().bold(),
+    "assert_eq!".bright_yellow().bold(),
+    "Ok(())".bright_yellow().bold(),
+    "Err".bright_yellow().bold(),
+    "String".bright_yellow().bold(),
+  );
+
+  println!(
+    "Writing tests so that they return a {0} enables you to use the question mark operator in the body of tests, which can \
+    be a convenient way to write tests that should fail if any operation within them returns an {1} variant.\n\n\
+    You can't use the {2} annotation on tests that use {0}.\n\
+    To assert that an operation returns an {1} variant, don't use the question mark operator on the {0} value.\n\
+    Instead, use {3}.
+  ",
+    "Result<T, E>".bright_yellow().bold(),
+    "Err".bright_yellow().bold(),
+    "#[should_panic]".bright_yellow().bold(),
+    "assert!(value.is_err())".bright_yellow().bold(),
+  )
+}
