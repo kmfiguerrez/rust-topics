@@ -3,10 +3,13 @@ use owo_colors::OwoColorize;
 use crate::{chapter, menu};
 
 pub fn content(section_title: &str, section: &str) {
-  let subheaders: [chapter::SubHeader; 2];
+  let subheaders: [chapter::SubHeader; 5];
   subheaders = [
-    chapter::SubHeader::new("Controlling How Tests Are Run", chtar_content),
+    chapter::SubHeader::new("Section Introduction", chtar_content),
     chapter::SubHeader::new("Running Tests in Parallel or Consecutively", rtipoc_content),
+    chapter::SubHeader::new("Showing Function Output", sfo_content),
+    chapter::SubHeader::new("Running a Subset of Tests by Name", rasotbn_content),
+    chapter::SubHeader::new("Ignoring Tests Unless Specifically Requested", itusr_content),
 
 
   ];
@@ -91,3 +94,134 @@ fn rtipoc_content() {
   )
 
 }
+
+// Header: Showing Function Output. Abbreviated as sfo.
+fn sfo_content() {
+  let solid_disc = "\u{2022}";
+
+  menu::subheader_title("Running Tests in Parallel or Consecutively");
+
+  println!(
+    "By default, if a test passes, Rust's test library captures anything printed to standard output.\n\
+    For example, if we call {0} in a test and the test passes, we won't see the {0} output in the terminal; \
+    we'll see only the line that indicates the test passed.\n\
+    If a test fails, we'll see whatever was printed to standard output with the rest of the failure message.\n\n\
+    As an example, Listing 11-10 has a silly function that prints the value of its parameter and returns 10, as well \
+    as a test that passes and a test that fails.\n\n\
+    See: {1}, for code sample.\n\n\
+    Note that nowhere in this output do we see {2}, which is printed when the test that passes runs.\n\
+    That output has been captured.\n\
+    The output from the test that failed, {3}, appears in the section of the test summary output, which also shows the cause \
+    of the test failure.\n\n\
+    If we want to see printed values for passing tests as well, we can tell Rust to also show the output of successful tests \
+    with {4}:\n\n\
+    {5}
+  ",
+    "println!".bright_yellow().bold(),
+    "https://doc.rust-lang.org/book/ch11-02-running-tests.html#listing-11-10".cyan(),
+    "I got the value 4".bright_yellow().bold(),
+    "I got the value 8".bright_yellow().bold(),
+    "--show-output".bright_yellow().bold(),
+    "$ cargo test -- --show-output".bright_yellow().bold()
+
+  );
+
+  println!(
+    "{}\n\n\
+    {solid_disc} By default, if a test passes, Rust's test library captures anything printed to standard output.
+  ",
+    "REMEMBER".bright_white().bold(),
+  )  
+}
+
+// Header: Running a Subset of Tests by Name. Abbreviated as rasotbn.
+fn rasotbn_content() {
+  let solid_disc = "\u{2022}";
+
+  menu::subheader_title("Running a Subset of Tests by Name");
+
+  println!(
+    "Running a full test suite can sometimes take a long time.\n\
+    If you're working on code in a particular area, you might want to run only the tests pertaining to that code.\n\
+    You can choose which tests to run by passing {0} the name or names of the test(s) you want to run as an argument.\n\n\
+    To demonstrate how to run a subset of tests, we'll first create three tests for our add_two function, as shown in 
+    Listing 11-11, and choose which ones to run.\n\n\
+    See: {1}, for code sample and outputs.
+  ",
+    "cargo test".bright_yellow().bold(),
+    "https://doc.rust-lang.org/book/ch11-02-running-tests.html#listing-11-11".cyan()
+  );
+
+  println!(
+    "{0}\n\n\
+    We can pass the name of any test function to {1} to run only that test:\n\n\
+    {1}\n\n\
+    Only the test with the name one_hundred ran; the other two tests didn't match that name.\n\
+    The test output lets us know we had more tests that didn't run by displaying {3} at the end.\n\
+    We can't specify the names of multiple tests in this way; only the first value given to {2} will be used. \
+    But there is a way to run multiple tests.
+  ",
+    "Running Single Tests".bright_magenta().bold(),
+    "cargo test <test name>".bright_yellow().bold(),
+    "cargo test".bright_yellow().bold(),
+    "2 filtered out".bright_yellow().bold(),
+  );
+
+  println!(
+    "{0}\n\n\
+    We can specify part of a test name, and any test whose name matches that value will be run.\n\
+    For example, because two of our tests' names contain add, we can run those two by running {1}:\n\n\
+    {2}\n\n\
+    This command ran all tests with {3} in the name and filtered out the tests that don't.\n\n\
+    Also note that the module in which a test appears becomes part of the test's name, so we can run all \
+    the tests in a module by filtering on the module's name.
+  ",
+    "Filtering to Run Multiple Tests".bright_magenta().bold(),
+    "cargo test add".bright_yellow().bold(),
+    "cargo test <part of a test name>".bright_yellow().bold(),
+    "add".bright_yellow().bold(),
+  );
+
+  println!(
+    "{}\n\n\
+    {solid_disc} Also note that the module in which a test appears becomes part of the test's name, so we can run all the tests \
+    in a module by filtering on the module's name.
+  ",
+    "REMEMBER".bright_white().bold(),
+  )    
+
+}
+
+// Header: Ignoring Tests Unless Specifically Requested. Abbreviated as itusr.
+fn itusr_content() {
+  menu::subheader_title("Ignoring Tests Unless Specifically Requested");
+
+  println!(
+    "Sometimes a few specific tests can be very time-consuming to execute, so you might want to exclude them during most runs of \
+    {0}.\n\
+    Rather than listing as arguments all tests you do want to run, you can instead annotate the time-consuming tests using the \
+    {1} attribute to exclude them.\n\n\
+    See: {2}, for codes sample and output.\n\n\
+    After {3}, we add the {4} line to the test we want to exclude.\n\
+    Now when we run our tests, {5} runs, but {6} doesn't.\n\
+    The {6} function is listed as ignored.\n\
+    If we want to run only the ignored tests, we can use {7}.\n\n\
+    By controlling which tests run, you can make sure your {0} results will be returned quickly.\n\
+    When you're at a point where it makes sense to check the results of the ignored tests and you have time to wait for the \
+    results, you can run {7} instead.\n\
+    If you want to run all tests whether they're ignored or not, you can run {8}.
+
+  ",
+    "cargo test".bright_yellow().bold(),
+    "ignore".bright_yellow().bold(),
+    "https://doc.rust-lang.org/book/ch11-02-running-tests.html#ignoring-tests-unless-specifically-requested".cyan(),
+    "#[test]".bright_yellow().bold(),
+    "#[ignore]".bright_yellow().bold(),
+    "it_works".bright_yellow().bold(),
+    "expensive_test".bright_yellow().bold(),
+    "cargo test -- --ignored".bright_yellow().bold(),
+    "cargo test -- --include-ignored".bright_yellow().bold(),
+  )
+}
+
+
