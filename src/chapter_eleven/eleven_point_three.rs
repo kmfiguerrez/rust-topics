@@ -3,11 +3,12 @@ use owo_colors::OwoColorize;
 use crate::{chapter, menu};
 
 pub fn content(section_title: &str, section: &str) {
-  let subheaders: [chapter::SubHeader; 3];
+  let subheaders: [chapter::SubHeader; 4];
   subheaders = [
     chapter::SubHeader::new("Section Introduction", to_content),
     chapter::SubHeader::new("Unit Tests", ut_content),
     chapter::SubHeader::new("Integration Tests", it_content),
+    chapter::SubHeader::new("Integration Tests", s_content),
   ];
 
   chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
@@ -136,7 +137,7 @@ fn ut_content() {
 fn it_content() {
   let solid_disc = "\u{2022}";
 
-  menu::subheader_title("Section: Integration Tests, introduction");
+  menu::subheader_title("Integration Tests");
 
   println!(
     "In Rust, integration tests are entirely external to your library.\n\
@@ -188,5 +189,46 @@ fn it_content() {
     "https://doc.rust-lang.org/book/ch11-03-test-organization.html#listing-11-12".cyan(),
     "Doc-tests adder".bright_yellow().bold(),
     "--test".bright_yellow().bold(),
-  )
+  );
+
+  println!(
+    "{}\n\n\
+    Temporarily see: {}, for the content.\n\n\
+  ",
+    "Submodules in Integration Tests".bright_magenta().bold(),
+    "https://doc.rust-lang.org/book/ch11-03-test-organization.html#submodules-in-integration-tests".cyan()
+  );
+
+  println!(
+    "{0}\n\n\
+    If our project is a binary crate that only contains a {1} file and doesn't have a {2} file, we can't \
+    create integration tests in the tests directory and bring functions defined in the {1} file into scope with a \
+    {3} statement.\n\
+    Only library crates expose functions that other crates can use; binary crates are meant to be run on their own.\n\n\
+    This is one of the reasons Rust projects that provide a binary have a straightforward {1} file that calls logic \
+    that lives in the {2} file.\n\
+    Using that structure, integration tests can test the library crate with {3} to make the important functionality available.\n\
+    If the important functionality works, the small amount of code in the {1} file will work as well, and that small amount \
+    of code doesn't need to be tested.
+  ",
+    "Integration Tests for Binary Crates".bright_magenta().bold(),
+    "src/main.rs".italic(),
+    "src/lib.rs".italic(),
+    "use".bright_yellow().bold()
+  );
+}
+
+// Header: Summary. Abbreviated as s.
+fn s_content() {
+  menu::subheader_title("Summary");
+
+  println!(
+    "Rust's testing features provide a way to specify how code should function to ensure that it continues to work as you expect, \
+    even as you make changes.\n\
+    Unit tests exercise different parts of a library separately and can test private implementation details.\n\
+    Integration tests check that many parts of the library work together correctly, and they use the library's public API to test \
+    the code in the same way external code will use it.\n\
+    Even though Rust's type system and ownership rules help prevent some kinds of bugs, tests are still important to reduce logic \
+    bugs having to do with how your code is expected to behave.
+  ")
 }
