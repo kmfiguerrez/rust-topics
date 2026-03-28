@@ -60,7 +60,7 @@ fn ccfwilale_content() {
     "_ => ()".bright_yellow().bold(),
     "if let".bright_yellow().bold(),
     "let config_max = Some(3u8); \n\
-    if let Some(max) = value {\n    println!(\"The maximum is {max}\");\n}
+    if let Some(max) = config_max {\n    println!(\"The maximum is {max}\");\n}
     ".bright_yellow().bold(),
     "Some(max)".bright_yellow().bold()
   );

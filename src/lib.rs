@@ -4,6 +4,7 @@ pub mod chapter_six;
 pub mod chapter_nine;
 pub mod chapter_ten;
 pub mod chapter_eleven;
+pub mod chapter_twelve;
 pub mod menu;
 pub mod chapter;
 
