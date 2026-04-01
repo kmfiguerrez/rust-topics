@@ -10,8 +10,15 @@ pub mod chapter;
 
 
 // Practicing with tests
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    let mut results = Vec::new();
+
+    for line in contents.lines() {
+        if line.contains(query) {
+            results.push(line);
+        }
+    }
+    results
 }
 
 #[cfg(test)]
@@ -19,18 +26,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn exploration() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+    fn one_result() {
+        let query = "duct";
+        let contents = "\
+Rust:
+safe, fast, productive.
+Pick three.";
 
-    #[test]
-    fn another() {
-        panic!("Make this test fail");
+    // println!("contents: {contents:#?}");
+    assert_eq!(vec!["safe, fast, productive."], search(query, contents));
     }
-
-    #[test]
-    fn aubrey_pangit() {
-        panic!("Aubreys is ugly as fuck");
-    }    
 }
