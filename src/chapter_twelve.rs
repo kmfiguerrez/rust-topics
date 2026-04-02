@@ -4,3 +4,4 @@ pub mod twelve_point_two;
 pub mod twelve_point_three;
 pub mod twelve_point_four;
 pub mod twelve_point_five;
+pub mod twelve_point_six;
