@@ -1,7 +1,7 @@
-use crate::{chapter::{self, Chapter}, chapter_eleven, chapter_four, chapter_nine, chapter_seven, chapter_six, chapter_ten, chapter_twelve};
+use crate::{chapter::{self, Chapter}, chapter_eleven, chapter_four, chapter_nine, chapter_seven, chapter_six, chapter_ten, chapter_thirteen, chapter_twelve};
 
-pub fn generate_chapters() -> [Chapter<'static>; 7] {
-  let chapters: [Chapter<'_>; 7] = [
+pub fn generate_chapters() -> [Chapter<'static>; 8] {
+  let chapters: [Chapter<'_>; 8] = [
     chapter::Chapter::new(
       "Understanding Ownership",
       "Chapter 4",
@@ -36,7 +36,12 @@ pub fn generate_chapters() -> [Chapter<'static>; 7] {
     "An I/O Project: Building a Command Line Program",
     "Chapter 12",
     chapter_twelve::section::generate_sections()
-    )    
+    ),
+    chapter::Chapter::new(
+    "Functional Language Features: Iterators and Closures",
+    "Chapter 13",
+    chapter_thirteen::section::generate_sections()
+    ) 
   ];
 
   chapters
