@@ -6,6 +6,7 @@ pub mod chapter_ten;
 pub mod chapter_eleven;
 pub mod chapter_twelve;
 pub mod chapter_thirteen;
+pub mod chapter_fifteen;
 pub mod menu;
 pub mod chapter;
 

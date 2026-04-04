@@ -1,7 +1,7 @@
-use crate::{chapter::{self, Chapter}, chapter_eleven, chapter_four, chapter_nine, chapter_seven, chapter_six, chapter_ten, chapter_thirteen, chapter_twelve};
+use crate::{chapter::{self, Chapter}, chapter_eleven, chapter_fifteen, chapter_four, chapter_nine, chapter_seven, chapter_six, chapter_ten, chapter_thirteen, chapter_twelve};
 
-pub fn generate_chapters() -> [Chapter<'static>; 8] {
-  let chapters: [Chapter<'_>; 8] = [
+pub fn generate_chapters() -> [Chapter<'static>; 9] {
+  let chapters: [Chapter<'_>; 9] = [
     chapter::Chapter::new(
       "Understanding Ownership",
       "Chapter 4",
@@ -41,7 +41,12 @@ pub fn generate_chapters() -> [Chapter<'static>; 8] {
     "Functional Language Features: Iterators and Closures",
     "Chapter 13",
     chapter_thirteen::section::generate_sections()
-    ) 
+    ),
+    chapter::Chapter::new(
+    "Smart Pointers",
+    "Chapter 15",
+    chapter_fifteen::section::generate_sections()
+    )
   ];
 
   chapters
