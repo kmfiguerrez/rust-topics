@@ -3,10 +3,11 @@ use owo_colors::OwoColorize;
 use crate::{chapter, menu};
 
 pub fn content(section_title: &str, section: &str) {
-  let subheaders: [chapter::SubHeader; 2];
+  let subheaders: [chapter::SubHeader; 3];
   subheaders = [
     chapter::SubHeader::new("Section Introduction", si_content),
     chapter::SubHeader::new("Sharing Data", sd_content),
+    chapter::SubHeader::new("Cloning to Increase the Reference Count", ctitrc_content),
   ];
 
   chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
@@ -94,7 +95,59 @@ fn sd_content() {
 
 }
 
+// Header: Cloning to Increase the Reference Count. Abbreviated as ctitrc.
+fn ctitrc_content() {
+  let solid_disc = "\u{2022}";
 
+  menu::subheader_title("Cloning to Increase the Reference Count");
+
+  println!(
+  "See: {0}, for complete reading.\n\n\
+  We can see that the {1} in {2} has an initial reference count of 1; then, each time we call {3}, the count goes up by 1.\n\
+  When {4} goes out of scope, the count goes down by 1.\n\
+  We don't have to call a function to decrease the reference count like we have to call {3} to increase the reference count: \
+  The implementation of the {5} trait decreases the reference count automatically when an {6} value goes out of scope.\n\n\
+  What we can't see in this example is that when {7} and then {2} go out of scope at the end of {8}, the count is 0, and the \
+  {1} is cleaned up completely.\n\
+  Using {6} allows a single value to have multiple owners, and the count ensures that the value remains valid as long as any of \
+  the owners still exist.
+  ",
+  "https://doc.rust-lang.org/book/ch15-04-rc.html#cloning-to-increase-the-reference-count".bright_cyan(),
+  "Rc<List>".bright_yellow().bold(),
+  "a".bright_yellow().bold(),
+  "Rc::clone".bright_yellow().bold(),
+  "c".bright_yellow().bold(),
+  "Drop".bright_yellow().bold(),
+  "Rc<T>".bright_yellow().bold(),
+  "b".bright_yellow().bold(),
+  "main".bright_yellow().bold(),
+  );
+
+  println!(
+  "Via immutable references, {0} allows you to share data between multiple parts of your program for reading only.\n\
+  If {0} allowed you to have multiple mutable references too, you might violate one of the borrowing rules discussed in Chapter 4: \
+  Multiple mutable borrows to the same place can cause data races and inconsistencies.\n\
+  But being able to mutate data is very useful! In the next section, we'll discuss the interior mutability pattern and the \
+  {1} type that you can use in conjunction with an {0} to work with this immutability restriction.
+  ",
+  "Rc<T>".bright_yellow().bold(),
+  "RefCell<T>".bright_yellow().bold(),
+  );
+
+  println!(
+  "{0}\n\n\
+  {solid_disc} We use {1} to find out how many owners there are to a value in an {2} - reference count.\n\
+  {solid_disc} When the reference count is 0, the value is cleaned up.\n\
+  {solid_disc} This function is named {3} rather than count because the {2} type also has a {4}.\n\
+  {solid_disc} Via immutable references, {2} allows you to share data between multiple parts of your program for reading only.
+  ",
+  "REMEMBER".bright_white().bold(),
+  "Rc::strong_count".bright_yellow().bold(),
+  "Rc<T>".bright_yellow().bold(),
+  "strong_count".bright_yellow().bold(),
+  "weak_count".bright_yellow().bold(),
+  )
+}
 
 
 
