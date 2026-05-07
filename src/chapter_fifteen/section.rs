@@ -1,4 +1,4 @@
-use crate::{chapter::Section, chapter_fifteen::{fifteen_point_one, fifteen_point_two, fifteen_point_three, fifteen_point_four, fifteen_point_five}};
+use crate::{chapter::Section, chapter_fifteen::{fifteen_point_one, fifteen_point_two, fifteen_point_three, fifteen_point_four, fifteen_point_five, fifteen_point_six}};
 
 pub fn generate_sections() -> Vec<Section<'static>> {
   vec![
@@ -7,5 +7,6 @@ pub fn generate_sections() -> Vec<Section<'static>> {
     Section::new("Running Code on Cleanup with the Drop Trait", "Section 15.3", fifteen_point_three::content),
     Section::new("Rc<T>, the Reference-Counted Smart Pointer", "Section 15.4", fifteen_point_four::content),
     Section::new("RefCell<T> and the Interior Mutability Pattern", "Section 15.5", fifteen_point_five::content),
+    Section::new("Reference Cycles Can Leak Memory", "Section 15.6", fifteen_point_six::content),
   ]
 }
