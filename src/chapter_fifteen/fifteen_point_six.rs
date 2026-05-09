@@ -9,7 +9,6 @@ pub fn content(section_title: &str, section: &str) {
     chapter::SubHeader::new("Creating a Reference Cycle", carc_content),
     chapter::SubHeader::new("Preventing Reference Cycles Using Weak<T>", prcuw_content),
     chapter::SubHeader::new("Summary", s_content),
-
   ];
 
   chapter::SubHeader::prompt_subheader(&subheaders, section_title, section);
