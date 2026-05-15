@@ -246,8 +246,6 @@ fn mtpoi_content() {
 
 // Header: Closures That Capture Their Environment. Abbreviated as ctcte.
 fn ctcte_content() {
-  let solid_disc = "\u{2022}";
-
   menu::subheader_title("Closures That Capture Their Environment");
 
   println!(

@@ -162,8 +162,6 @@ fn taom_content() {
 // Header: Shared Access to Mutex<T>. Abbreviated as satm.
 // Extracted from the Controlling Access with Mutexes header.
 fn satm_content() {
-  let solid_disc = "\u{2022}";
-
   menu::subheader_title("Shared Access to Mutex<T>");
 
   println!(
@@ -181,8 +179,6 @@ fn satm_content() {
 // Header: Multiple Ownership with Multiple Threads. Abbreviated as mowmt.
 // Extracted from the Controlling Access with Mutexes header.
 fn mowmt_content() {
-  let solid_disc = "\u{2022}";
-
   menu::subheader_title("Multiple Ownership with Multiple Threads");
 
   println!(
