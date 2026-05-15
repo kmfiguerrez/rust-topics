@@ -76,7 +76,6 @@ fn carc_content() {
   {solid_disc} You can't rely on Rust to catch reference cycles.\n\
   {solid_disc} Creating a reference cycle would be a logic bug in your program that you should use automated tests, code reviews, and \
   other software development practices to minimize.\n\
-
   ",
   "REMEMBER".bright_white().bold(),
   )
