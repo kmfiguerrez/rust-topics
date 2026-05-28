@@ -22,7 +22,7 @@ pub fn content(section_title: &str, section: &str) {
 fn ci_content() {
   let solid_disc = "\u{2022}";
 
-  menu::subheader_title("Chapter Introduction: Fearless Concurrency");
+  menu::subheader_title("Chapter Introduction: Fundamentals of Asynchronous Programming");
 
   println!(
   "{0}\n\n\

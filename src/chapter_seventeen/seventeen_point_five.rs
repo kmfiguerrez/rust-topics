@@ -45,8 +45,7 @@ fn tft_content() {
 
   println!(
   "Let's start by taking a closer look at how the {0} trait works. Here's how Rust defines it:\n\n\
-  See: {1}, for code sample and complete reading.\n\n\
-
+  See: {1}, for code sample and complete reading.
   ",
   "Future".bright_yellow().bold(),
   "https://doc.rust-lang.org/book/ch17-05-traits-for-async.html#the-future-trait".bright_cyan(),

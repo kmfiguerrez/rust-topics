@@ -1,7 +1,7 @@
-use crate::{chapter::{self, Chapter}, chapter_eleven, chapter_fifteen, chapter_four, chapter_nine, chapter_seven, chapter_seventeen, chapter_six, chapter_sixteen, chapter_ten, chapter_thirteen, chapter_twelve};
+use crate::{chapter::{self, Chapter}, chapter_eighteen, chapter_eleven, chapter_fifteen, chapter_four, chapter_nine, chapter_seven, chapter_seventeen, chapter_six, chapter_sixteen, chapter_ten, chapter_thirteen, chapter_twelve};
 
-pub fn generate_chapters() -> [Chapter<'static>; 11] {
-  let chapters: [Chapter<'_>; 11] = [
+pub fn generate_chapters() -> [Chapter<'static>; 12] {
+  let chapters: [Chapter<'_>; 12] = [
     chapter::Chapter::new(
       "Understanding Ownership",
       "Chapter 4",
@@ -56,6 +56,11 @@ pub fn generate_chapters() -> [Chapter<'static>; 11] {
     "Fundamentals of Asynchronous Programming",
     "Chapter 17",
     chapter_seventeen::section::generate_sections()
+    ),
+    chapter::Chapter::new(
+    "Object-Oriented Programming Features",
+    "Chapter 18",
+    chapter_eighteen::section::generate_sections()
     )
   ];
 
