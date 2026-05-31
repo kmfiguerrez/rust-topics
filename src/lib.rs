@@ -11,6 +11,7 @@ pub mod chapter_sixteen;
 pub mod chapter_seventeen;
 pub mod chapter_eighteen;
 pub mod chapter_nineteen;
+pub mod chapter_twenty;
 pub mod menu;
 pub mod chapter;
 
